@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imam Ghazali - HaditsKu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="website icon" type="png" href="alquran.png">
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --primary-light: rgba(142, 68, 173, 0.1);
+            --primary-dark: #6c3483;
+            --secondary: #d6ccb5;
+            --accent: #f5c361;
+            --dark: #1e2a3a;
+            --light: #f8f8f6;
+            --gray: #718096;
+            --arabic-font: 'Amiri', serif;
+            
+            /* Dark mode variables */
+            --dark-bg: #121212;
+            --dark-card: #1e1e1e;
+            --dark-text: #e0e0e0;
+            --dark-border: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            padding-bottom: 60px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode .header {
+            background-color: var(--dark-card);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: scale(1.1);
+        }
+
+        .logo-text h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-3px);
+        }
+
+        .page-title {
+            flex: 1;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        body.dark-mode .page-title {
+            color: var(--secondary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-left: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .theme-toggle {
+            color: var(--dark-text);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            color: var(--accent);
+        }
+
+        /* Main Content */
+        .main {
+            padding: 15px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Kitab Info */
+        .kitab-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode .kitab-header {
+            background-color: var(--dark-card);
+        }
+
+        .kitab-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .kitab-info {
+            flex: 1;
+        }
+
+        .kitab-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        body.dark-mode .kitab-title {
+            color: var(--dark-text);
+        }
+
+        .kitab-author {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .kitab-description {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        /* Hadits List */
+        .hadits-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .hadits-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .hadits-card {
+            background-color: var(--dark-card);
+            border-color: var(--dark-border);
+        }
+
+        .hadits-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .hadits-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: var(--gray);
+            background-color: var(--primary-light);
+            padding: 3px 8px;
+            border-radius: 20px;
+        }
+
+        .hadits-content {
+            font-family: var(--arabic-font);
+            font-size: 1.5rem;
+            text-align: right;
+            line-height: 1.8;
+            margin: 15px 0;
+            color: var(--dark);
+        }
+
+        body.dark-mode .hadits-content {
+            color: var(--dark-text);
+        }
+
+        .hadits-translation {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-style: italic;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--primary-light);
+        }
+
+        .hadits-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .hadits-favorite {
+            background: none;
+            border: none;
+            color: var(--gray);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .hadits-favorite:hover {
+            color: var(--primary);
+        }
+
+        .hadits-favorite.active {
+            color: #e74c3c;
+        }
+
+        .hadits-favorite i {
+            font-size: 1.1rem;
+        }
+
+        .hadits-share {
+            background: none;
+            border: none;
+            color: var(--gray);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hadits-share:hover {
+            color: var(--primary);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .page-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .page-btn.active {
+            background-color: var(--primary-dark);
+            font-weight: bold;
+        }
+
+        .page-btn.disabled {
+            background-color: var(--gray);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 15px rgba(0,0,0,0.08);
+            z-index: 90;
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode .bottom-nav {
+            background-color: var(--dark-card);
+            box-shadow: 0 -2px 15px rgba(0,0,0,0.2);
+        }
+
+        .bottom-nav.hidden {
+            transform: translateY(100%);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray);
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            background-color: var(--primary-light);
+            transform: translateY(-5px);
+        }
+
+        .nav-item:not(.active):hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-item.active i {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .hadits-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hadits-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="back-btn" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="page-title">Imam Ghazali</div>
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="kitab-header">
+            <div class="kitab-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <div class="kitab-info">
+                <h1 class="kitab-title">Karya Imam Ghazali</h1>
+                <p class="kitab-author">Abu Hamid Muhammad bin Muhammad al-Ghazali ath-Thusi asy-Syafi'i </p>
+                <p class="kitab-description">
+                    Hujjatul Islam Imam Ghazali adalah ulama besar yang karya-karyanya mencakup berbagai bidang ilmu. Karya utamanya termasuk Ihya Ulumuddin, Kimiya as-Sa'adah, dan banyak lainnya yang membahas tasawuf, filsafat, dan ilmu keislaman.
+                </p>
+            </div>
+        </div>
+
+        <div class="hadits-list" id="haditsList">
+            <!-- Daftar kutipan akan dimuat di sini -->
+        </div>
+
+        <div class="pagination">
+            <button class="page-btn" id="prevPage"><i class="fas fa-chevron-left"></i></button>
+            <button class="page-btn active" data-page="1">1</button>
+            <button class="page-btn" data-page="2">2</button>
+            <button class="page-btn" data-page="3">3</button>
+            <button class="page-btn" id="nextPage"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Beranda</span>
+        </a>
+        <a href="kitab-hadist.html" class="nav-item">
+            <i class="fas fa-book"></i>
+            <span>Kitab</span>
+        </a>
+        <a href="favorite-hadist.html" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>Favorit</span>
+        </a>
+        <a href="profil-hadist.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Profil</span>
+        </a>
+    </nav>
+
+    <script>
+        // Data contoh kutipan Imam Ghazali (30 kutipan contoh)
+        const allQuotesData = [
+            // 1-10
+            { id: 'ghazali-1', number: 1, arabic: 'مَنْ عَرَفَ نَفْسَهُ فَقَدْ عَرَفَ رَبَّهُ', translation: 'Barangsiapa mengenal dirinya, maka sungguh dia telah mengenal Tuhannya.' },
+            { id: 'ghazali-2', number: 2, arabic: 'الدُّنْيَا سِجْنُ الْمُؤْمِنِ وَجَنَّةُ الْكَافِرِ', translation: 'Dunia adalah penjara bagi orang beriman dan surga bagi orang kafir.' },
+            { id: 'ghazali-3', number: 3, arabic: 'إِذَا أَرَدْتَ أَنْ تَعْرِفَ قَدْرَكَ عِنْدَ اللَّهِ فَانْظُرْ فِيمَا أَقَامَكَ', translation: 'Jika kamu ingin mengetahui kedudukanmu di sisi Allah, lihatlah di mana Allah menempatkanmu.' },
+            { id: 'ghazali-4', number: 4, arabic: 'الْعِلْمُ بِلاَ عَمَلٍ جُنُونٌ، وَالْعَمَلُ بِلاَ عِلْمٍ لَنْ يَكُونَ', translation: 'Ilmu tanpa amal adalah kegilaan, dan amal tanpa ilmu tidak akan terjadi.' },
+            { id: 'ghazali-5', number: 5, arabic: 'مَنْ كَانَ هَمُّهُ الْآخِرَةَ جَمَعَ اللَّهُ لَهُ أَمْرَهُ وَجَعَلَ غِنَاهُ فِي قَلْبِهِ', translation: 'Barangsiapa yang cita-citanya akhirat, Allah akan menyatukan urusannya dan menjadikan kekayaan dalam hatinya.' },
+            { id: 'ghazali-6', number: 6, arabic: 'الْمُؤْمِنُ مِرْآةُ أَخِيهِ', translation: 'Seorang mukmin adalah cermin bagi saudaranya.' },
+            { id: 'ghazali-7', number: 7, arabic: 'الصَّبْرُ عِنْدَ الصَّدْمَةِ الْأُولَى', translation: 'Sabar itu ketika pada pukulan pertama.' },
+            { id: 'ghazali-8', number: 8, arabic: 'مَا أَضْمَرَ أَحَدٌ شَيْئًا إِلَّا ظَهَرَ فِي فَلَتَاتِ لِسَانِهِ وَصَفَحَاتِ وَجْهِهِ', translation: 'Tidaklah seseorang menyembunyikan sesuatu kecuali akan terlihat dalam ucapan lisannya dan raut wajahnya.' },
+            { id: 'ghazali-9', number: 9, arabic: 'الْقَلْبُ مَطِيَّةُ الْفِكْرِ', translation: 'Hati adalah kendaraan pikiran.' },
+            { id: 'ghazali-10', number: 10, arabic: 'الرِّيَاءُ سِرُّ الشِّرْكِ', translation: 'Riya adalah rahasia syirik.' },
+            
+            // 11-20
+            { id: 'ghazali-11', number: 11, arabic: 'مَنْ أَحَبَّ الدُّنْيَا أَذْهَبَ خَوْفَ الْآخِرَةِ مِنْ قَلْبِهِ', translation: 'Barangsiapa mencintai dunia, maka hilanglah rasa takut akan akhirat dari hatinya.' },
+            { id: 'ghazali-12', number: 12, arabic: 'الْعَافِيَةُ عَشْرَةُ أَجْزَاءٍ: تِسْعَةٌ مِنْهَا فِي الصَّمْتِ وَوَاحِدٌ فِي الْهَرَبِ مِنَ النَّاسِ', translation: 'Kesehatan itu terdiri dari sepuluh bagian: sembilan bagian ada dalam diam dan satu bagian dalam menjauhi manusia.' },
+            { id: 'ghazali-13', number: 13, arabic: 'الْعِلْمُ حَيَاةُ الْقَلْبِ مِنَ الْجَهْلِ، وَضِيَاءُ الْبَصَرِ مِنَ الظُّلْمَةِ', translation: 'Ilmu adalah kehidupan hati dari kebodohan, dan cahaya penglihatan dari kegelapan.' },
+            { id: 'ghazali-14', number: 14, arabic: 'إِذَا أَرَدْتَ أَنْ تَعْلَمَ مَا لَكَ عِنْدَ اللَّهِ فَانْظُرْ مَا لِلَّهِ عِنْدَكَ', translation: 'Jika kamu ingin mengetahui apa yang kamu miliki di sisi Allah, lihatlah apa yang Allah miliki padamu.' },
+            { id: 'ghazali-15', number: 15, arabic: 'الْعِبَادَةُ عِبَادَتَانِ: عِبَادَةُ الْعَامَّةِ وَعِبَادَةُ الْخَاصَّةِ', translation: 'Ibadah ada dua macam: ibadah orang awam dan ibadah orang khusus.' },
+            { id: 'ghazali-16', number: 16, arabic: 'الْمُصَابُ مَنْ فَاتَهُ الْيَوْمُ وَلَمْ يَزْدَدْ فِيهِ مِنَ اللَّهِ قُرْبًا', translation: 'Orang yang rugi adalah yang harinya berlalu tanpa bertambah dekat kepada Allah.' },
+            { id: 'ghazali-17', number: 17, arabic: 'الْقُنُوعُ كَنْزٌ لَا يَفْنَى', translation: 'Qanaah (merasa cukup) adalah harta yang tidak akan habis.' },
+            { id: 'ghazali-18', number: 18, arabic: 'الْحِكْمَةُ ضَالَّةُ الْمُؤْمِنِ', translation: 'Hikmah adalah barang hilang milik orang beriman.' },
+            { id: 'ghazali-19', number: 19, arabic: 'مَنْ عَاشَ بِاللَّهِ لَمْ يَخَفْ مِنْ أَحَدٍ', translation: 'Barangsiapa hidup dengan Allah, dia tidak akan takut kepada siapa pun.' },
+            { id: 'ghazali-20', number: 20, arabic: 'الْإِيمَانُ مَعْرِفَةٌ بِالْقَلْبِ وَقَوْلٌ بِاللِّسَانِ وَعَمَلٌ بِالْأَرْكَانِ', translation: 'Iman adalah pengetahuan dengan hati, ucapan dengan lisan, dan amal dengan anggota badan.' },
+            
+            // 21-30
+            { id: 'ghazali-21', number: 21, arabic: 'الْعَاقِلُ مَنْ كَانَ عَالِمًا بِزَمَانِهِ', translation: 'Orang yang berakal adalah yang mengetahui zamannya.' },
+            { id: 'ghazali-22', number: 22, arabic: 'الْحَيَاءُ مِنْ خِصَالِ الْإِيمَانِ', translation: 'Malu adalah bagian dari iman.' },
+            { id: 'ghazali-23', number: 23, arabic: 'الْقَلْبُ مَثَلُ الْمَلِكِ وَالْجَوَارِحُ مَثَلُ الْجُنْدِ', translation: 'Hati ibarat raja dan anggota badan ibarat tentara.' },
+            { id: 'ghazali-24', number: 24, arabic: 'الْعِلْمُ يُرْفَعُ بِالْعَمَلِ وَيَنْزِلُ بِالْإِهْمَالِ', translation: 'Ilmu akan terangkat dengan amal dan turun dengan kelalaian.' },
+            { id: 'ghazali-25', number: 25, arabic: 'الْمُؤْمِنُ يَنْظُرُ بِنُورِ اللَّهِ', translation: 'Seorang mukmin melihat dengan cahaya Allah.' },
+            { id: 'ghazali-26', number: 26, arabic: 'الرِّضَا بِالْقَضَاءِ مِنْ أَعْلَى دَرَجَاتِ الْيَقِينِ', translation: 'Ridha terhadap takdir termasuk tingkatan yakin yang paling tinggi.' },
+            { id: 'ghazali-27', number: 27, arabic: 'الْحُبُّ لِلَّهِ وَالْبُغْضُ فِي اللَّهِ', translation: 'Cinta karena Allah dan benci karena Allah.' },
+            { id: 'ghazali-28', number: 28, arabic: 'الْعُزْلَةُ خَيْرٌ مِنْ صُحْبَةِ السُّوءِ', translation: 'Menyendiri lebih baik daripada bergaul dengan orang yang buruk.' },
+            { id: 'ghazali-29', number: 29, arabic: 'الْعِلْمُ يَهْدِي وَالْعَمَلُ يُبَلِّغُ', translation: 'Ilmu menunjukkan jalan dan amal mengantarkan kepada tujuan.' },
+            { id: 'ghazali-30', number: 30, arabic: 'الْحِكْمَةُ تَاجُ الْمُؤْمِنِ', translation: 'Hikmah adalah mahkota orang beriman.' }
+        ];
+
+        // Variabel pagination
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        const totalPages = Math.ceil(allQuotesData.length / itemsPerPage);
+
+        // Fungsi untuk scroll ke atas dengan animasi
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Fungsi untuk mendapatkan data kutipan per halaman
+        function getPaginatedData(page) {
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            return allQuotesData.slice(start, end);
+        }
+
+        // Fungsi untuk mengecek apakah kutipan sudah difavoritkan
+        function checkFavorite(id) {
+            const favorites = JSON.parse(localStorage.getItem('ghazaliFavorites')) || [];
+            return favorites.some(fav => fav.id === id);
+        }
+
+        // Fungsi untuk toggle favorit
+        function toggleFavorite(id, button) {
+            const favorites = JSON.parse(localStorage.getItem('ghazaliFavorites')) || [];
+            const quote = allQuotesData.find(q => q.id === id);
+            
+            const isFavorite = checkFavorite(id);
+            
+            if (isFavorite) {
+                // Hapus dari favorit
+                const updatedFavorites = favorites.filter(fav => fav.id !== id);
+                localStorage.setItem('ghazaliFavorites', JSON.stringify(updatedFavorites));
+                
+                button.innerHTML = '<i class="far fa-heart"></i> Simpan';
+                button.classList.remove('active');
+            } else {
+                // Tambahkan ke favorit
+                const newFavorite = {
+                    id: quote.id,
+                    kitabName: 'Karya Imam Ghazali',
+                    author: 'Imam Abu Hamid Al-Ghazali',
+                    quoteNumber: quote.number,
+                    arabicText: quote.arabic,
+                    translation: quote.translation,
+                    color: '#8e44ad',
+                    icon: 'fas fa-book-open',
+                    savedAt: new Date().toISOString()
+                };
+                
+                favorites.push(newFavorite);
+                localStorage.setItem('ghazaliFavorites', JSON.stringify(favorites));
+                
+                button.innerHTML = '<i class="fas fa-heart"></i> Favorit';
+                button.classList.add('active');
+            }
+        }
+
+        // Fungsi untuk share kutipan
+        function shareQuote(number, arabic, translation) {
+            const text = `${number} - Imam Ghazali:\n\n${arabic}\n\nTerjemahan:\n${translation}\n\n-- Dari Aplikasi HaditsKu`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Kutipan Imam Ghazali',
+                    text: text,
+                    url: window.location.href
+                }).catch(err => {
+                    console.log('Error sharing:', err);
+                    fallbackShare(text);
+                });
+            } else {
+                fallbackShare(text);
+            }
+        }
+
+        // Fallback untuk browser yang tidak support Web Share API
+        function fallbackShare(text) {
+            // Copy ke clipboard
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Kutipan dari Imam Ghazali berhasil disalin ke clipboard! 📜✨')
+            }).catch(err => {
+                console.log('Could not copy text: ', err);
+                prompt('Salin teks berikut:', text);
+            });
+        }
+
+        // Fungsi untuk merender daftar kutipan
+        function renderQuotesList(page) {
+            const container = document.getElementById('haditsList');
+            container.innerHTML = '';
+            
+            const quotesToShow = getPaginatedData(page);
+            
+            quotesToShow.forEach(quote => {
+                const isFavorite = checkFavorite(quote.id);
+                
+                const card = document.createElement('div');
+                card.className = 'hadits-card';
+                card.innerHTML = `
+                    <span class="hadits-number">No. ${quote.number}</span>
+                    <div class="hadits-content">
+                        ${quote.arabic}
+                    </div>
+                    <div class="hadits-translation">
+                        ${quote.translation}
+                    </div>
+                    <div class="hadits-actions">
+                        <button class="hadits-favorite ${isFavorite ? 'active' : ''}" data-id="${quote.id}">
+                            <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i> ${isFavorite ? 'Favorit' : 'Simpan'}
+                        </button>
+                        <button class="hadits-share">
+                            <i class="fas fa-share-alt"></i> Bagikan
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+            
+            // Setup event listeners untuk tombol favorit dan share
+            setupQuotesActions();
+            scrollToTop(); // Scroll ke atas setelah render
+        }
+
+        // Fungsi untuk setup action kutipan (favorit dan share)
+        function setupQuotesActions() {
+            // Tambahkan event listener untuk tombol favorit
+            document.querySelectorAll('.hadits-favorite').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    toggleFavorite(id, this);
+                    
+                    // Animasi tombol
+                    this.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+            
+            // Tambahkan event listener untuk tombol share
+            document.querySelectorAll('.hadits-share').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const card = this.closest('.hadits-card');
+                    const arabic = card.querySelector('.hadits-content').textContent;
+                    const translation = card.querySelector('.hadits-translation').textContent;
+                    const number = card.querySelector('.hadits-number').textContent;
+                    
+                    shareQuote(number, arabic, translation);
+                    
+                    // Animasi tombol
+                    this.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+        }
+
+        // Fungsi untuk update tampilan pagination
+        function updatePaginationUI() {
+            const pageBtns = document.querySelectorAll('.page-btn[data-page]');
+            const prevBtn = document.getElementById('prevPage');
+            const nextBtn = document.getElementById('nextPage');
+            
+            // Update active state
+            pageBtns.forEach(btn => {
+                const pageNum = parseInt(btn.getAttribute('data-page'));
+                btn.classList.toggle('active', pageNum === currentPage);
+            });
+            
+            // Update disabled state
+            prevBtn.classList.toggle('disabled', currentPage === 1);
+            nextBtn.classList.toggle('disabled', currentPage === totalPages);
+        }
+
+        // Fungsi untuk setup pagination event listeners
+        function setupPagination() {
+            const pageBtns = document.querySelectorAll('.page-btn[data-page]');
+            const prevBtn = document.getElementById('prevPage');
+            const nextBtn = document.getElementById('nextPage');
+            
+            // Tombol nomor halaman
+            pageBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const pageNum = parseInt(this.getAttribute('data-page'));
+                    if (pageNum !== currentPage) {
+                        currentPage = pageNum;
+                        renderQuotesList(currentPage);
+                        updatePaginationUI();
+                        
+                        // Animasi tombol
+                        this.style.transform = 'scale(0.9)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 200);
+                    }
+                });
+            });
+            
+            // Tombol previous
+            prevBtn.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderQuotesList(currentPage);
+                    updatePaginationUI();
+                    
+                    // Animasi tombol
+                    this.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                }
+            });
+            
+            // Tombol next
+            nextBtn.addEventListener('click', function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderQuotesList(currentPage);
+                    updatePaginationUI();
+                    
+                    // Animasi tombol
+                    this.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                }
+            });
+        }
+
+        // Fungsi untuk toggle tema gelap
+        function setupThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const icon = themeToggle.querySelector('i');
+            
+            // Check for saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                
+                // Animasi tombol tema
+                this.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+                
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                }
+            });
+        }
+
+        // Fungsi untuk hide/show footer saat scroll
+        function setupScrollBehavior() {
+            const bottomNav = document.getElementById('bottomNav');
+            let lastScrollPosition = 0;
+            let ticking = false;
+            
+            window.addEventListener('scroll', function() {
+                const currentScrollPosition = window.pageYOffset;
+                
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        if (currentScrollPosition > lastScrollPosition && currentScrollPosition > 100) {
+                            // Scrolling down
+                            bottomNav.classList.add('hidden');
+                        } else {
+                            // Scrolling up
+                            bottomNav.classList.remove('hidden');
+                        }
+                        lastScrollPosition = currentScrollPosition;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        }
+
+        // Fungsi untuk bottom navigation
+        function setupBottomNav() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            
+            navItems.forEach(item => {
+                const itemHref = item.getAttribute('href').split('/').pop();
+                
+                // Set active class based on current page
+                if (itemHref === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+                
+                // Add click animation
+                item.addEventListener('click', function(e) {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'scale(0.9)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 200);
+                    }
+                });
+            });
+        }
+
+        // Inisialisasi saat DOM siap
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuotesList(currentPage);
+            setupPagination();
+            updatePaginationUI();
+            setupThemeToggle();
+            setupScrollBehavior();
+            setupBottomNav();
+        });
+    </script>
+</body>
+</html>

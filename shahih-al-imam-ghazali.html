@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imam Ghazali - HaditsKu</title>
+    <title>Ihya Ulumuddin - HaditsKu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="website icon" type="png" href="alquran.png">
     <style>
         :root {
-            --primary: #8e44ad;
-            --primary-light: rgba(142, 68, 173, 0.1);
-            --primary-dark: #6c3483;
+            --primary: #16a085;
+            --primary-light: rgba(22, 160, 133, 0.1);
+            --primary-dark: #1a7f6c;
             --secondary: #d6ccb5;
             --accent: #f5c361;
             --dark: #1e2a3a;
@@ -427,7 +427,7 @@
         <button class="back-btn" onclick="window.history.back()">
             <i class="fas fa-arrow-left"></i>
         </button>
-        <div class="page-title">Imam Ghazali</div>
+        <div class="page-title">Ihya Ulumuddin</div>
         <button class="theme-toggle" id="themeToggle">
             <i class="fas fa-moon"></i>
         </button>
@@ -437,19 +437,19 @@
     <main class="main">
         <div class="kitab-header">
             <div class="kitab-icon">
-                <i class="fas fa-book-open"></i>
+                <i class="fas fa-scroll"></i>
             </div>
             <div class="kitab-info">
-                <h1 class="kitab-title">Karya Imam Ghazali</h1>
-                <p class="kitab-author">Abu Hamid Muhammad bin Muhammad al-Ghazali ath-Thusi asy-Syafi'i </p>
+                <h1 class="kitab-title">Ihya Ulumuddin</h1>
+                <p class="kitab-author">Imam Al-Ghazali</p>
                 <p class="kitab-description">
-                    Hujjatul Islam Imam Ghazali adalah ulama besar yang karya-karyanya mencakup berbagai bidang ilmu. Karya utamanya termasuk Ihya Ulumuddin, Kimiya as-Sa'adah, dan banyak lainnya yang membahas tasawuf, filsafat, dan ilmu keislaman.
+                   Ihya' Ulumuddin adalah salah satu karya monumental Imam Al-Ghazali yang membahas kebangkitan ilmu-ilmu agama dengan pendekatan yang dalam dan menyentuh hati. ✨ Kitab ini nggak cuma bicara soal ibadah, tapi juga menggali tentang adab, spiritualitas, dan penyucian jiwa, bikin siapa pun yang membacanya bisa lebih memahami makna hidup dalam Islam. Dengan gaya penulisan yang reflektif dan penuh hikmah, kitab ini jadi salah satu referensi utama dalam dunia tasawuf, mengajak kita untuk mendekatkan diri pada Allah dengan lebih ikhlas dan penuh kesadaran.
                 </p>
             </div>
         </div>
 
         <div class="hadits-list" id="haditsList">
-            <!-- Daftar kutipan akan dimuat di sini -->
+            <!-- Daftar hadits akan dimuat di sini -->
         </div>
 
         <div class="pagination">
@@ -482,373 +482,373 @@
     </nav>
 
     <script>
-        // Data contoh kutipan Imam Ghazali (30 kutipan contoh)
-        const allQuotesData = [
-            // 1-10
-            { id: 'ghazali-1', number: 1, arabic: 'مَنْ عَرَفَ نَفْسَهُ فَقَدْ عَرَفَ رَبَّهُ', translation: 'Barangsiapa mengenal dirinya, maka sungguh dia telah mengenal Tuhannya.' },
-            { id: 'ghazali-2', number: 2, arabic: 'الدُّنْيَا سِجْنُ الْمُؤْمِنِ وَجَنَّةُ الْكَافِرِ', translation: 'Dunia adalah penjara bagi orang beriman dan surga bagi orang kafir.' },
-            { id: 'ghazali-3', number: 3, arabic: 'إِذَا أَرَدْتَ أَنْ تَعْرِفَ قَدْرَكَ عِنْدَ اللَّهِ فَانْظُرْ فِيمَا أَقَامَكَ', translation: 'Jika kamu ingin mengetahui kedudukanmu di sisi Allah, lihatlah di mana Allah menempatkanmu.' },
-            { id: 'ghazali-4', number: 4, arabic: 'الْعِلْمُ بِلاَ عَمَلٍ جُنُونٌ، وَالْعَمَلُ بِلاَ عِلْمٍ لَنْ يَكُونَ', translation: 'Ilmu tanpa amal adalah kegilaan, dan amal tanpa ilmu tidak akan terjadi.' },
-            { id: 'ghazali-5', number: 5, arabic: 'مَنْ كَانَ هَمُّهُ الْآخِرَةَ جَمَعَ اللَّهُ لَهُ أَمْرَهُ وَجَعَلَ غِنَاهُ فِي قَلْبِهِ', translation: 'Barangsiapa yang cita-citanya akhirat, Allah akan menyatukan urusannya dan menjadikan kekayaan dalam hatinya.' },
-            { id: 'ghazali-6', number: 6, arabic: 'الْمُؤْمِنُ مِرْآةُ أَخِيهِ', translation: 'Seorang mukmin adalah cermin bagi saudaranya.' },
-            { id: 'ghazali-7', number: 7, arabic: 'الصَّبْرُ عِنْدَ الصَّدْمَةِ الْأُولَى', translation: 'Sabar itu ketika pada pukulan pertama.' },
-            { id: 'ghazali-8', number: 8, arabic: 'مَا أَضْمَرَ أَحَدٌ شَيْئًا إِلَّا ظَهَرَ فِي فَلَتَاتِ لِسَانِهِ وَصَفَحَاتِ وَجْهِهِ', translation: 'Tidaklah seseorang menyembunyikan sesuatu kecuali akan terlihat dalam ucapan lisannya dan raut wajahnya.' },
-            { id: 'ghazali-9', number: 9, arabic: 'الْقَلْبُ مَطِيَّةُ الْفِكْرِ', translation: 'Hati adalah kendaraan pikiran.' },
-            { id: 'ghazali-10', number: 10, arabic: 'الرِّيَاءُ سِرُّ الشِّرْكِ', translation: 'Riya adalah rahasia syirik.' },
+      // Data contoh kutipan dari Ihya Ulumuddin (30 contoh)
+const allHaditsData = [
+    // 1-10
+    { id: 'ghazali-1', number: 1, arabic: 'اَلْعِلْمُ بِلاَ عَمَلٍ جُنُونٌ، وَالْعَمَلُ بِلاَ عِلْمٍ لَا يَكُونُ', translation: 'Ilmu tanpa amal adalah kegilaan, dan amal tanpa ilmu tidak akan terjadi.' },
+    { id: 'ghazali-2', number: 2, arabic: 'مَنْ عَرَفَ نَفْسَهُ فَقَدْ عَرَفَ رَبَّهُ', translation: 'Barangsiapa mengenal dirinya, maka sungguh dia telah mengenal Tuhannya.' },
+    { id: 'ghazali-3', number: 3, arabic: 'الدُّنْيَا سِجْنُ الْمُؤْمِنِ وَجَنَّةُ الْكَافِرِ', translation: 'Dunia adalah penjara bagi orang beriman dan surga bagi orang kafir.' },
+    { id: 'ghazali-4', number: 4, arabic: 'الصَّبْرُ عِنْدَ الصَّدْمَةِ الْأُولَى', translation: 'Sabar itu (diukur) pada saat pertama kali tertimpa musibah.' },
+    { id: 'ghazali-5', number: 5, arabic: 'مَنْ أَصْبَحَ وَهُمُّهُ غَيْرُ اللَّهِ فَلَيْسَ مِنَ اللَّهِ فِي شَيْءٍ', translation: 'Barangsiapa yang di pagi hari obsesinya bukan Allah, maka dia tidak termasuk golongan Allah sedikit pun.' },
+    { id: 'ghazali-6', number: 6, arabic: 'الْقَلْبُ مَطِيَّةُ الْخَيْرِ وَالشَّرِّ', translation: 'Hati adalah kendaraan kebaikan dan keburukan.' },
+    { id: 'ghazali-7', number: 7, arabic: 'الرِّيَاءُ سِرُّ الشِّرْكِ', translation: 'Riya adalah sirik yang tersembunyi.' },
+    { id: 'ghazali-8', number: 8, arabic: 'مَنْ طَلَبَ الْعِلْمَ لِلَّهِ دَانَ لَهُ كُلُّ شَيْءٍ', translation: 'Barangsiapa mencari ilmu karena Allah, maka segala sesuatu akan tunduk kepadanya.' },
+    { id: 'ghazali-9', number: 9, arabic: 'الْعِبَادَةُ عَشْرَةُ أَجْزَاءٍ: تِسْعَةٌ فِي السَّكْتِ وَوَاحِدٌ فِي الْفِرَارِ مِنَ النَّاسِ', translation: 'Ibadah itu sepuluh bagian: sembilan bagian dalam diam dan satu bagian dalam menjauhi manusia.' },
+    { id: 'ghazali-10', number: 10, arabic: 'أَوَّلُ الْعِلْمِ الصَّمْتُ، وَالثَّانِي الْإِنْصَاتُ، وَالثَّالِثُ الْحِفْظُ، وَالرَّابِعُ الْعَمَلُ، وَالْخَامِسُ نَشْرُهُ', translation: 'Pertama ilmu adalah diam, kedua mendengarkan, ketiga menghafal, keempat mengamalkan, dan kelima menyebarkannya.' },
+    
+    // 11-20
+    { id: 'ghazali-11', number: 11, arabic: 'مَنْ لَمْ يَذُقْ مُرَّ الْعُزْلَةِ لَمْ يَذُقْ حَلَاوَةَ الْأُنْسِ', translation: 'Barangsiapa belum merasakan pahitnya menyendiri, maka belum merasakan manisnya kebersamaan (dengan Allah).' },
+    { id: 'ghazali-12', number: 12, arabic: 'الْمُؤْمِنُ مِرْآةُ الْمُؤْمِنِ', translation: 'Seorang mukmin adalah cermin bagi mukmin lainnya.' },
+    { id: 'ghazali-13', number: 13, arabic: 'الْقَنَاعَةُ كَنْزٌ لَا يَفْنَى', translation: 'Qanaah (merasa cukup) adalah harta yang tidak akan pernah habis.' },
+    { id: 'ghazali-14', number: 14, arabic: 'الْحَيَاءُ مِنَ الْإِيمَانِ، وَالْإِيمَانُ فِي الْجَنَّةِ', translation: 'Malu adalah bagian dari iman, dan iman berada di surga.' },
+    { id: 'ghazali-15', number: 15, arabic: 'مَنْ عَاشَ بِمَا يَعْرِفُ أَرَاهُ اللَّهُ مَا لَا يَعْرِفُ', translation: 'Barangsiapa hidup dengan apa yang dia ketahui, maka Allah akan memperlihatkan kepadanya apa yang tidak dia ketahui.' },
+    { id: 'ghazali-16', number: 16, arabic: 'الْعُزْلَةُ خَيْرٌ مِنْ صُحْبَةِ السُّوءِ', translation: 'Menyendiri lebih baik daripada bergaul dengan orang yang buruk.' },
+    { id: 'ghazali-17', number: 17, arabic: 'الْفِكْرُ مِفْتَاحُ الْأَبْوَابِ الْمُغْلَقَةِ', translation: 'Berpikir adalah kunci pintu-pintu yang tertutup.' },
+    { id: 'ghazali-18', number: 18, arabic: 'الْعِلْمُ حَيَاةُ الْقُلُوبِ، وَنُورُ الْبَصَائِرِ', translation: 'Ilmu adalah kehidupan hati dan cahaya penglihatan batin.' },
+    { id: 'ghazali-19', number: 19, arabic: 'مَنْ أَحَبَّ الدُّنْيَا أَذْهَبَ خَوْفَ الْآخِرَةِ مِنْ قَلْبِهِ', translation: 'Barangsiapa mencintai dunia, maka hilanglah rasa takut akan akhirat dari hatinya.' },
+    { id: 'ghazali-20', number: 20, arabic: 'الْعِبَادَةُ فَرْضٌ عَلَى كُلِّ مُسْلِمٍ', translation: 'Ibadah adalah kewajiban bagi setiap muslim.' },
+    
+    // 21-30
+    { id: 'ghazali-21', number: 21, arabic: 'الْقَلْبُ إِذَا امْتَلَأَ بِالْحِكْمَةِ لَمْ يَخَفِ الشَّيْطَانَ', translation: 'Hati yang dipenuhi hikmah tidak akan takut pada setan.' },
+    { id: 'ghazali-22', number: 22, arabic: 'الْعِلْمُ بِلاَ عَمَلٍ كَالشَّجَرِ بِلاَ ثَمَرٍ', translation: 'Ilmu tanpa amal seperti pohon tanpa buah.' },
+    { id: 'ghazali-23', number: 23, arabic: 'الْحِكْمَةُ ضَالَّةُ الْمُؤْمِنِ', translation: 'Hikmah adalah barang hilangnya orang beriman.' },
+    { id: 'ghazali-24', number: 24, arabic: 'الْعَافِيَةُ أَفْضَلُ نِعْمَةٍ', translation: 'Kesehatan adalah nikmat yang paling utama.' },
+    { id: 'ghazali-25', number: 25, arabic: 'الصَّبْرُ مِفْتَاحُ الْفَرَجِ', translation: 'Sabar adalah kunci kelapangan.' },
+    { id: 'ghazali-26', number: 26, arabic: 'الْمُصَابُ مَنْ فَاتَهُ الْخَيْرُ', translation: 'Orang yang celaka adalah yang luput dari kebaikan.' },
+    { id: 'ghazali-27', number: 27, arabic: 'الْعُزْلَةُ رَاحَةٌ مِنْ أَخْلَاقِ السُّفَهَاءِ', translation: 'Menyendiri adalah istirahat dari kebodohan orang-orang yang kurang akal.' },
+    { id: 'ghazali-28', number: 28, arabic: 'الْعِلْمُ يُرِيكَ مَا لَمْ تَكُنْ تَعْلَمُ', translation: 'Ilmu akan memperlihatkan kepadamu apa yang tidak kamu ketahui.' },
+    { id: 'ghazali-29', number: 29, arabic: 'الْحِكْمَةُ رَأْسُ الْأُمُورِ', translation: 'Hikmah adalah pokok segala urusan.' },
+    { id: 'ghazali-30', number: 30, arabic: 'الْعِلْمُ خَيْرٌ مِنَ الْمَالِ، الْعِلْمُ يَحْرُسُكَ وَأَنْتَ تَحْرُسُ الْمَالَ', translation: 'Ilmu lebih baik daripada harta, ilmu menjagamu sementara kamu menjaga hartamu.' }
+];
+
+// Variabel pagination
+let currentPage = 1;
+const itemsPerPage = 10;
+const totalPages = Math.ceil(allHaditsData.length / itemsPerPage);
+
+// Fungsi untuk scroll ke atas dengan animasi
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Fungsi untuk mendapatkan data hadits per halaman
+function getPaginatedData(page) {
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    return allHaditsData.slice(start, end);
+}
+
+// Fungsi untuk mengecek apakah hadits sudah difavoritkan
+function checkFavorite(id) {
+    const favorites = JSON.parse(localStorage.getItem('hadithFavorites')) || [];
+    return favorites.some(fav => fav.id === id);
+}
+
+// Fungsi untuk toggle favorit
+function toggleFavorite(id, button) {
+    const favorites = JSON.parse(localStorage.getItem('hadithFavorites')) || [];
+    const hadits = allHaditsData.find(h => h.id === id);
+    
+    const isFavorite = checkFavorite(id);
+    
+    if (isFavorite) {
+        // Hapus dari favorit
+        const updatedFavorites = favorites.filter(fav => fav.id !== id);
+        localStorage.setItem('hadithFavorites', JSON.stringify(updatedFavorites));
+        
+        button.innerHTML = '<i class="far fa-heart"></i> Simpan';
+        button.classList.remove('active');
+    } else {
+        // Tambahkan ke favorit
+        const newFavorite = {
+            id: hadits.id,
+            kitabName: 'Ihya Ulumuddin',
+            author: 'Imam Al-Ghazali',
+            hadithNumber: hadits.number,
+            arabicText: hadits.arabic,
+            translation: hadits.translation,
+            color: '#16a085',
+            icon: 'fas fa-book-sparkles',
+            savedAt: new Date().toISOString()
+        };
+        
+        favorites.push(newFavorite);
+        localStorage.setItem('hadithFavorites', JSON.stringify(favorites));
+        
+        button.innerHTML = '<i class="fas fa-heart"></i> Favorit';
+        button.classList.add('active');
+    }
+}
+
+// Fungsi untuk share hadits
+function shareHadits(number, arabic, translation) {
+    const text = `${number} - Ihya Ulumuddin:\n\n${arabic}\n\nTerjemahan:\n${translation}\n\n-- Dari Aplikasi HaditsKu`;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'Kutipan Ihya Ulumuddin',
+            text: text,
+            url: window.location.href
+        }).catch(err => {
+            console.log('Error sharing:', err);
+            fallbackShare(text);
+        });
+    } else {
+        fallbackShare(text);
+    }
+}
+
+// Fallback untuk browser yang tidak support Web Share API
+function fallbackShare(text) {
+    // Copy ke clipboard
+    navigator.clipboard.writeText(text).then(() => {
+        alert('Wih, Kutipan dari Website HaditsKu udah berhasil ke-copy ke clipboard kamu! 🔥✨')
+    }).catch(err => {
+        console.log('Could not copy text: ', err);
+        prompt('Salin teks berikut:', text);
+    });
+}
+
+// Fungsi untuk merender daftar hadits
+function renderHaditsList(page) {
+    const container = document.getElementById('haditsList');
+    container.innerHTML = '';
+    
+    const haditsToShow = getPaginatedData(page);
+    
+    haditsToShow.forEach(hadits => {
+        const isFavorite = checkFavorite(hadits.id);
+        
+        const card = document.createElement('div');
+        card.className = 'hadits-card';
+        card.innerHTML = `
+            <span class="hadits-number">No. ${hadits.number}</span>
+            <div class="hadits-content">
+                ${hadits.arabic}
+            </div>
+            <div class="hadits-translation">
+                ${hadits.translation}
+            </div>
+            <div class="hadits-actions">
+                <button class="hadits-favorite ${isFavorite ? 'active' : ''}" data-id="${hadits.id}">
+                    <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i> ${isFavorite ? 'Favorit' : 'Simpan'}
+                </button>
+                <button class="hadits-share">
+                    <i class="fas fa-share-alt"></i> Bagikan
+                </button>
+            </div>
+        `;
+        
+        container.appendChild(card);
+    });
+    
+    // Setup event listeners untuk tombol favorit dan share
+    setupHaditsActions();
+    scrollToTop(); // Scroll ke atas setelah render
+}
+
+// Fungsi untuk setup action hadits (favorit dan share)
+function setupHaditsActions() {
+    // Tambahkan event listener untuk tombol favorit
+    document.querySelectorAll('.hadits-favorite').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            toggleFavorite(id, this);
             
-            // 11-20
-            { id: 'ghazali-11', number: 11, arabic: 'مَنْ أَحَبَّ الدُّنْيَا أَذْهَبَ خَوْفَ الْآخِرَةِ مِنْ قَلْبِهِ', translation: 'Barangsiapa mencintai dunia, maka hilanglah rasa takut akan akhirat dari hatinya.' },
-            { id: 'ghazali-12', number: 12, arabic: 'الْعَافِيَةُ عَشْرَةُ أَجْزَاءٍ: تِسْعَةٌ مِنْهَا فِي الصَّمْتِ وَوَاحِدٌ فِي الْهَرَبِ مِنَ النَّاسِ', translation: 'Kesehatan itu terdiri dari sepuluh bagian: sembilan bagian ada dalam diam dan satu bagian dalam menjauhi manusia.' },
-            { id: 'ghazali-13', number: 13, arabic: 'الْعِلْمُ حَيَاةُ الْقَلْبِ مِنَ الْجَهْلِ، وَضِيَاءُ الْبَصَرِ مِنَ الظُّلْمَةِ', translation: 'Ilmu adalah kehidupan hati dari kebodohan, dan cahaya penglihatan dari kegelapan.' },
-            { id: 'ghazali-14', number: 14, arabic: 'إِذَا أَرَدْتَ أَنْ تَعْلَمَ مَا لَكَ عِنْدَ اللَّهِ فَانْظُرْ مَا لِلَّهِ عِنْدَكَ', translation: 'Jika kamu ingin mengetahui apa yang kamu miliki di sisi Allah, lihatlah apa yang Allah miliki padamu.' },
-            { id: 'ghazali-15', number: 15, arabic: 'الْعِبَادَةُ عِبَادَتَانِ: عِبَادَةُ الْعَامَّةِ وَعِبَادَةُ الْخَاصَّةِ', translation: 'Ibadah ada dua macam: ibadah orang awam dan ibadah orang khusus.' },
-            { id: 'ghazali-16', number: 16, arabic: 'الْمُصَابُ مَنْ فَاتَهُ الْيَوْمُ وَلَمْ يَزْدَدْ فِيهِ مِنَ اللَّهِ قُرْبًا', translation: 'Orang yang rugi adalah yang harinya berlalu tanpa bertambah dekat kepada Allah.' },
-            { id: 'ghazali-17', number: 17, arabic: 'الْقُنُوعُ كَنْزٌ لَا يَفْنَى', translation: 'Qanaah (merasa cukup) adalah harta yang tidak akan habis.' },
-            { id: 'ghazali-18', number: 18, arabic: 'الْحِكْمَةُ ضَالَّةُ الْمُؤْمِنِ', translation: 'Hikmah adalah barang hilang milik orang beriman.' },
-            { id: 'ghazali-19', number: 19, arabic: 'مَنْ عَاشَ بِاللَّهِ لَمْ يَخَفْ مِنْ أَحَدٍ', translation: 'Barangsiapa hidup dengan Allah, dia tidak akan takut kepada siapa pun.' },
-            { id: 'ghazali-20', number: 20, arabic: 'الْإِيمَانُ مَعْرِفَةٌ بِالْقَلْبِ وَقَوْلٌ بِاللِّسَانِ وَعَمَلٌ بِالْأَرْكَانِ', translation: 'Iman adalah pengetahuan dengan hati, ucapan dengan lisan, dan amal dengan anggota badan.' },
+            // Animasi tombol
+            this.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+        });
+    });
+    
+    // Tambahkan event listener untuk tombol share
+    document.querySelectorAll('.hadits-share').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const card = this.closest('.hadits-card');
+            const arabic = card.querySelector('.hadits-content').textContent;
+            const translation = card.querySelector('.hadits-translation').textContent;
+            const number = card.querySelector('.hadits-number').textContent;
             
-            // 21-30
-            { id: 'ghazali-21', number: 21, arabic: 'الْعَاقِلُ مَنْ كَانَ عَالِمًا بِزَمَانِهِ', translation: 'Orang yang berakal adalah yang mengetahui zamannya.' },
-            { id: 'ghazali-22', number: 22, arabic: 'الْحَيَاءُ مِنْ خِصَالِ الْإِيمَانِ', translation: 'Malu adalah bagian dari iman.' },
-            { id: 'ghazali-23', number: 23, arabic: 'الْقَلْبُ مَثَلُ الْمَلِكِ وَالْجَوَارِحُ مَثَلُ الْجُنْدِ', translation: 'Hati ibarat raja dan anggota badan ibarat tentara.' },
-            { id: 'ghazali-24', number: 24, arabic: 'الْعِلْمُ يُرْفَعُ بِالْعَمَلِ وَيَنْزِلُ بِالْإِهْمَالِ', translation: 'Ilmu akan terangkat dengan amal dan turun dengan kelalaian.' },
-            { id: 'ghazali-25', number: 25, arabic: 'الْمُؤْمِنُ يَنْظُرُ بِنُورِ اللَّهِ', translation: 'Seorang mukmin melihat dengan cahaya Allah.' },
-            { id: 'ghazali-26', number: 26, arabic: 'الرِّضَا بِالْقَضَاءِ مِنْ أَعْلَى دَرَجَاتِ الْيَقِينِ', translation: 'Ridha terhadap takdir termasuk tingkatan yakin yang paling tinggi.' },
-            { id: 'ghazali-27', number: 27, arabic: 'الْحُبُّ لِلَّهِ وَالْبُغْضُ فِي اللَّهِ', translation: 'Cinta karena Allah dan benci karena Allah.' },
-            { id: 'ghazali-28', number: 28, arabic: 'الْعُزْلَةُ خَيْرٌ مِنْ صُحْبَةِ السُّوءِ', translation: 'Menyendiri lebih baik daripada bergaul dengan orang yang buruk.' },
-            { id: 'ghazali-29', number: 29, arabic: 'الْعِلْمُ يَهْدِي وَالْعَمَلُ يُبَلِّغُ', translation: 'Ilmu menunjukkan jalan dan amal mengantarkan kepada tujuan.' },
-            { id: 'ghazali-30', number: 30, arabic: 'الْحِكْمَةُ تَاجُ الْمُؤْمِنِ', translation: 'Hikmah adalah mahkota orang beriman.' }
-        ];
-
-        // Variabel pagination
-        let currentPage = 1;
-        const itemsPerPage = 10;
-        const totalPages = Math.ceil(allQuotesData.length / itemsPerPage);
-
-        // Fungsi untuk scroll ke atas dengan animasi
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // Fungsi untuk mendapatkan data kutipan per halaman
-        function getPaginatedData(page) {
-            const start = (page - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            return allQuotesData.slice(start, end);
-        }
-
-        // Fungsi untuk mengecek apakah kutipan sudah difavoritkan
-        function checkFavorite(id) {
-            const favorites = JSON.parse(localStorage.getItem('ghazaliFavorites')) || [];
-            return favorites.some(fav => fav.id === id);
-        }
-
-        // Fungsi untuk toggle favorit
-        function toggleFavorite(id, button) {
-            const favorites = JSON.parse(localStorage.getItem('ghazaliFavorites')) || [];
-            const quote = allQuotesData.find(q => q.id === id);
+            shareHadits(number, arabic, translation);
             
-            const isFavorite = checkFavorite(id);
-            
-            if (isFavorite) {
-                // Hapus dari favorit
-                const updatedFavorites = favorites.filter(fav => fav.id !== id);
-                localStorage.setItem('ghazaliFavorites', JSON.stringify(updatedFavorites));
+            // Animasi tombol
+            this.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+        });
+    });
+}
+
+// Fungsi untuk update tampilan pagination
+function updatePaginationUI() {
+    const pageBtns = document.querySelectorAll('.page-btn[data-page]');
+    const prevBtn = document.getElementById('prevPage');
+    const nextBtn = document.getElementById('nextPage');
+    
+    // Update active state
+    pageBtns.forEach(btn => {
+        const pageNum = parseInt(btn.getAttribute('data-page'));
+        btn.classList.toggle('active', pageNum === currentPage);
+    });
+    
+    // Update disabled state
+    prevBtn.classList.toggle('disabled', currentPage === 1);
+    nextBtn.classList.toggle('disabled', currentPage === totalPages);
+}
+
+// Fungsi untuk setup pagination event listeners
+function setupPagination() {
+    const pageBtns = document.querySelectorAll('.page-btn[data-page]');
+    const prevBtn = document.getElementById('prevPage');
+    const nextBtn = document.getElementById('nextPage');
+    
+    // Tombol nomor halaman
+    pageBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pageNum = parseInt(this.getAttribute('data-page'));
+            if (pageNum !== currentPage) {
+                currentPage = pageNum;
+                renderHaditsList(currentPage);
+                updatePaginationUI();
                 
-                button.innerHTML = '<i class="far fa-heart"></i> Simpan';
-                button.classList.remove('active');
-            } else {
-                // Tambahkan ke favorit
-                const newFavorite = {
-                    id: quote.id,
-                    kitabName: 'Karya Imam Ghazali',
-                    author: 'Imam Abu Hamid Al-Ghazali',
-                    quoteNumber: quote.number,
-                    arabicText: quote.arabic,
-                    translation: quote.translation,
-                    color: '#8e44ad',
-                    icon: 'fas fa-book-open',
-                    savedAt: new Date().toISOString()
-                };
-                
-                favorites.push(newFavorite);
-                localStorage.setItem('ghazaliFavorites', JSON.stringify(favorites));
-                
-                button.innerHTML = '<i class="fas fa-heart"></i> Favorit';
-                button.classList.add('active');
-            }
-        }
-
-        // Fungsi untuk share kutipan
-        function shareQuote(number, arabic, translation) {
-            const text = `${number} - Imam Ghazali:\n\n${arabic}\n\nTerjemahan:\n${translation}\n\n-- Dari Aplikasi HaditsKu`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Kutipan Imam Ghazali',
-                    text: text,
-                    url: window.location.href
-                }).catch(err => {
-                    console.log('Error sharing:', err);
-                    fallbackShare(text);
-                });
-            } else {
-                fallbackShare(text);
-            }
-        }
-
-        // Fallback untuk browser yang tidak support Web Share API
-        function fallbackShare(text) {
-            // Copy ke clipboard
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Kutipan dari Imam Ghazali berhasil disalin ke clipboard! 📜✨')
-            }).catch(err => {
-                console.log('Could not copy text: ', err);
-                prompt('Salin teks berikut:', text);
-            });
-        }
-
-        // Fungsi untuk merender daftar kutipan
-        function renderQuotesList(page) {
-            const container = document.getElementById('haditsList');
-            container.innerHTML = '';
-            
-            const quotesToShow = getPaginatedData(page);
-            
-            quotesToShow.forEach(quote => {
-                const isFavorite = checkFavorite(quote.id);
-                
-                const card = document.createElement('div');
-                card.className = 'hadits-card';
-                card.innerHTML = `
-                    <span class="hadits-number">No. ${quote.number}</span>
-                    <div class="hadits-content">
-                        ${quote.arabic}
-                    </div>
-                    <div class="hadits-translation">
-                        ${quote.translation}
-                    </div>
-                    <div class="hadits-actions">
-                        <button class="hadits-favorite ${isFavorite ? 'active' : ''}" data-id="${quote.id}">
-                            <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i> ${isFavorite ? 'Favorit' : 'Simpan'}
-                        </button>
-                        <button class="hadits-share">
-                            <i class="fas fa-share-alt"></i> Bagikan
-                        </button>
-                    </div>
-                `;
-                
-                container.appendChild(card);
-            });
-            
-            // Setup event listeners untuk tombol favorit dan share
-            setupQuotesActions();
-            scrollToTop(); // Scroll ke atas setelah render
-        }
-
-        // Fungsi untuk setup action kutipan (favorit dan share)
-        function setupQuotesActions() {
-            // Tambahkan event listener untuk tombol favorit
-            document.querySelectorAll('.hadits-favorite').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = this.getAttribute('data-id');
-                    toggleFavorite(id, this);
-                    
-                    // Animasi tombol
-                    this.style.transform = 'scale(1.1)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 200);
-                });
-            });
-            
-            // Tambahkan event listener untuk tombol share
-            document.querySelectorAll('.hadits-share').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const card = this.closest('.hadits-card');
-                    const arabic = card.querySelector('.hadits-content').textContent;
-                    const translation = card.querySelector('.hadits-translation').textContent;
-                    const number = card.querySelector('.hadits-number').textContent;
-                    
-                    shareQuote(number, arabic, translation);
-                    
-                    // Animasi tombol
-                    this.style.transform = 'scale(1.1)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 200);
-                });
-            });
-        }
-
-        // Fungsi untuk update tampilan pagination
-        function updatePaginationUI() {
-            const pageBtns = document.querySelectorAll('.page-btn[data-page]');
-            const prevBtn = document.getElementById('prevPage');
-            const nextBtn = document.getElementById('nextPage');
-            
-            // Update active state
-            pageBtns.forEach(btn => {
-                const pageNum = parseInt(btn.getAttribute('data-page'));
-                btn.classList.toggle('active', pageNum === currentPage);
-            });
-            
-            // Update disabled state
-            prevBtn.classList.toggle('disabled', currentPage === 1);
-            nextBtn.classList.toggle('disabled', currentPage === totalPages);
-        }
-
-        // Fungsi untuk setup pagination event listeners
-        function setupPagination() {
-            const pageBtns = document.querySelectorAll('.page-btn[data-page]');
-            const prevBtn = document.getElementById('prevPage');
-            const nextBtn = document.getElementById('nextPage');
-            
-            // Tombol nomor halaman
-            pageBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const pageNum = parseInt(this.getAttribute('data-page'));
-                    if (pageNum !== currentPage) {
-                        currentPage = pageNum;
-                        renderQuotesList(currentPage);
-                        updatePaginationUI();
-                        
-                        // Animasi tombol
-                        this.style.transform = 'scale(0.9)';
-                        setTimeout(() => {
-                            this.style.transform = '';
-                        }, 200);
-                    }
-                });
-            });
-            
-            // Tombol previous
-            prevBtn.addEventListener('click', function() {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderQuotesList(currentPage);
-                    updatePaginationUI();
-                    
-                    // Animasi tombol
-                    this.style.transform = 'scale(0.9)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 200);
-                }
-            });
-            
-            // Tombol next
-            nextBtn.addEventListener('click', function() {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderQuotesList(currentPage);
-                    updatePaginationUI();
-                    
-                    // Animasi tombol
-                    this.style.transform = 'scale(0.9)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 200);
-                }
-            });
-        }
-
-        // Fungsi untuk toggle tema gelap
-        function setupThemeToggle() {
-            const themeToggle = document.getElementById('themeToggle');
-            const icon = themeToggle.querySelector('i');
-            
-            // Check for saved theme preference
-            if (localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark-mode');
-                icon.classList.replace('fa-moon', 'fa-sun');
-            }
-            
-            themeToggle.addEventListener('click', function() {
-                document.body.classList.toggle('dark-mode');
-                
-                // Animasi tombol tema
-                this.style.transform = 'scale(1.2)';
+                // Animasi tombol
+                this.style.transform = 'scale(0.9)';
                 setTimeout(() => {
                     this.style.transform = '';
                 }, 200);
-                
-                if (document.body.classList.contains('dark-mode')) {
-                    localStorage.setItem('theme', 'dark');
-                    icon.classList.replace('fa-moon', 'fa-sun');
-                } else {
-                    localStorage.setItem('theme', 'light');
-                    icon.classList.replace('fa-sun', 'fa-moon');
-                }
-            });
-        }
-
-        // Fungsi untuk hide/show footer saat scroll
-        function setupScrollBehavior() {
-            const bottomNav = document.getElementById('bottomNav');
-            let lastScrollPosition = 0;
-            let ticking = false;
-            
-            window.addEventListener('scroll', function() {
-                const currentScrollPosition = window.pageYOffset;
-                
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        if (currentScrollPosition > lastScrollPosition && currentScrollPosition > 100) {
-                            // Scrolling down
-                            bottomNav.classList.add('hidden');
-                        } else {
-                            // Scrolling up
-                            bottomNav.classList.remove('hidden');
-                        }
-                        lastScrollPosition = currentScrollPosition;
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            });
-        }
-
-        // Fungsi untuk bottom navigation
-        function setupBottomNav() {
-            const navItems = document.querySelectorAll('.nav-item');
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            
-            navItems.forEach(item => {
-                const itemHref = item.getAttribute('href').split('/').pop();
-                
-                // Set active class based on current page
-                if (itemHref === currentPage) {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
-                
-                // Add click animation
-                item.addEventListener('click', function(e) {
-                    if (!this.classList.contains('active')) {
-                        this.style.transform = 'scale(0.9)';
-                        setTimeout(() => {
-                            this.style.transform = '';
-                        }, 200);
-                    }
-                });
-            });
-        }
-
-        // Inisialisasi saat DOM siap
-        document.addEventListener('DOMContentLoaded', function() {
-            renderQuotesList(currentPage);
-            setupPagination();
-            updatePaginationUI();
-            setupThemeToggle();
-            setupScrollBehavior();
-            setupBottomNav();
+            }
         });
+    });
+    
+    // Tombol previous
+    prevBtn.addEventListener('click', function() {
+        if (currentPage > 1) {
+            currentPage--;
+            renderHaditsList(currentPage);
+            updatePaginationUI();
+            
+            // Animasi tombol
+            this.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+        }
+    });
+    
+    // Tombol next
+    nextBtn.addEventListener('click', function() {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderHaditsList(currentPage);
+            updatePaginationUI();
+            
+            // Animasi tombol
+            this.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+        }
+    });
+}
+
+// Fungsi untuk toggle tema gelap
+function setupThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const icon = themeToggle.querySelector('i');
+    
+    // Check for saved theme preference
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        icon.classList.replace('fa-moon', 'fa-sun');
+    }
+    
+    themeToggle.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        
+        // Animasi tombol tema
+        this.style.transform = 'scale(1.2)';
+        setTimeout(() => {
+            this.style.transform = '';
+        }, 200);
+        
+        if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            localStorage.setItem('theme', 'light');
+            icon.classList.replace('fa-sun', 'fa-moon');
+        }
+    });
+}
+
+// Fungsi untuk hide/show footer saat scroll
+function setupScrollBehavior() {
+    const bottomNav = document.getElementById('bottomNav');
+    let lastScrollPosition = 0;
+    let ticking = false;
+    
+    window.addEventListener('scroll', function() {
+        const currentScrollPosition = window.pageYOffset;
+        
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                if (currentScrollPosition > lastScrollPosition && currentScrollPosition > 100) {
+                    // Scrolling down
+                    bottomNav.classList.add('hidden');
+                } else {
+                    // Scrolling up
+                    bottomNav.classList.remove('hidden');
+                }
+                lastScrollPosition = currentScrollPosition;
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+}
+
+// Fungsi untuk bottom navigation
+function setupBottomNav() {
+    const navItems = document.querySelectorAll('.nav-item');
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    navItems.forEach(item => {
+        const itemHref = item.getAttribute('href').split('/').pop();
+        
+        // Set active class based on current page
+        if (itemHref === currentPage) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+        
+        // Add click animation
+        item.addEventListener('click', function(e) {
+            if (!this.classList.contains('active')) {
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            }
+        });
+    });
+}
+
+// Inisialisasi saat DOM siap
+document.addEventListener('DOMContentLoaded', function() {
+    renderHaditsList(currentPage);
+    setupPagination();
+    updatePaginationUI();
+    setupThemeToggle();
+    setupScrollBehavior();
+    setupBottomNav();
+});
     </script>
 </body>
 </html>

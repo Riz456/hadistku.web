@@ -6,9 +6,8 @@
     <title>HaditsKu - Portal Hadits Digital</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-      <link rel="website icon" type="png" href="alquran.png">
+    <link rel="website icon" type="png" href="alquran.png">
     <style>
-    
         :root {
             --primary: #0d6e6e;
             --primary-light: rgba(13, 110, 110, 0.1);
@@ -46,17 +45,30 @@
             background-color: var(--dark-bg);
             color: var(--dark-text);
         }
-        /* Tambahkan ini di bagian style */
-       @keyframes smoothTextChange {
-        0% { opacity: 1; transform: translateY(0); }
-        50% { opacity: 0; transform: translateY(-10px); }
-        100% { opacity: 1; transform: translateY(0); }
-      }
 
-.greeting h2 {
-    transition: all 0.6s ease;
-    animation: none; /* Hapus animasi default jika ada */
-}
+        /* Lazy loading animations */
+        .lazy-load {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .lazy-loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 4px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
 
         /* Header */
         .header {
@@ -161,12 +173,6 @@
         /* Main Content */
         .main {
             padding: 15px;
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .greeting {
@@ -178,12 +184,10 @@
             text-align: center;
             box-shadow: 0 4px 15px rgba(13, 110, 110, 0.2);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: slideUp 0.5s ease-out;
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .greeting.lazy-load {
+            animation: none;
         }
 
         .greeting:hover {
@@ -195,6 +199,7 @@
             font-size: 1.3rem;
             margin-bottom: 5px;
             text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            transition: all 0.6s ease;
         }
 
         .time-info {
@@ -214,7 +219,6 @@
             margin-bottom: 20px;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
-            animation: fadeIn 0.6s ease-out 0.1s both;
         }
 
         .categories::-webkit-scrollbar {
@@ -264,7 +268,6 @@
             box-shadow: 0 3px 12px rgba(0,0,0,0.08);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid rgba(0,0,0,0.05);
-            animation: fadeIn 0.6s ease-out;
             position: relative;
             overflow: hidden;
         }
@@ -353,7 +356,6 @@
         .empty-state {
             text-align: center;
             padding: 40px 20px;
-            animation: fadeIn 0.6s ease-out;
         }
 
         .empty-icon {
@@ -444,6 +446,20 @@
             transform: scale(1.1);
         }
 
+        /* Skeleton Loading */
+        .skeleton-card {
+            height: 200px;
+            background-color: #f0f0f0;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body.dark-mode .skeleton-card {
+            background-color: #2d2d2d;
+        }
+
         /* Responsive */
         @media (min-width: 768px) {
             .hadith-list {
@@ -456,6 +472,7 @@
                 grid-template-columns: repeat(3, 1fr);
             }
         }
+        
         .copyright {
             text-align: center;
             padding-top: 2rem;
@@ -463,7 +480,6 @@
             font-size: 0.9rem;
             color: #aaa;
         }
-
     </style>
 </head>
 <body>
@@ -486,7 +502,7 @@
 
     <!-- Main Content -->
     <main class="main">
-        <section class="greeting">
+        <section class="greeting lazy-load">
             <h2>Assalamu'alaikum</h2>
             <div class="time-info">
                 <span id="date"></span>
@@ -495,7 +511,7 @@
             </div>
         </section>
 
-        <section class="categories">
+        <section class="categories lazy-load">
             <div class="category active">Semua</div>
             <div class="category">Shalat</div>
             <div class="category">Puasa</div>
@@ -505,7 +521,10 @@
         </section>
 
         <section class="hadith-list" id="hadithList">
-            <!-- Hadits akan dimuat di sini -->
+            <!-- Skeleton loading while content loads -->
+            <div class="skeleton-card lazy-load"></div>
+            <div class="skeleton-card lazy-load"></div>
+            <div class="skeleton-card lazy-load"></div>
         </section>
 
         <!-- Template untuk empty state -->
@@ -519,10 +538,10 @@
             </div>
         </template>
     </main>
+    
     <div class="copyright">
-                <p>&copy; <span id="year"></span>2025 Rizky All rights reserved.</p>
-            </div>
-        </div>
+        <p>&copy; <span id="year"></span> Rizky All rights reserved.</p>
+    </div>
 
     <!-- Bottom Navigation -->
     <nav class="bottom-nav" id="bottomNav">
@@ -545,326 +564,369 @@
     </nav>
 
     <script>
-     // Data untuk greetings yang berubah-ubah
-const greetings = [
-    "Assalamu'alaikum",
-    "Selamat datang diweb Hadistku",
-    "Semoga kita selalu dalam lindungan Allah SWT",
-    "Tetap semangat, ya! 😊 Walaupun harimu terasa berat, jangan lupa untuk tetap tersenyum. Kadang, hal kecil seperti senyuman bisa bikin segalanya terasa lebih ringan. Kamu kuat, kamu hebat, dan semuanya akan baik-baik saja. ✨"
-];
+        // Data untuk greetings yang berubah-ubah
+        const greetings = [
+            "Assalamu'alaikum",
+            "Selamat datang diweb Hadistku",
+            "Semoga kita selalu dalam lindungan Allah SWT",
+            "Tetap semangat, ya! 😊 Walaupun harimu terasa berat, jangan lupa untuk tetap tersenyum. Kadang, hal kecil seperti senyuman bisa bikin segalanya terasa lebih ringan. Kamu kuat, kamu hebat, dan semuanya akan baik-baik saja. ✨"
+        ];
 
-// Fungsi untuk rotasi greetings dengan animasi slow
-function rotateGreetings() {
-    const greetingElement = document.querySelector('.greeting h2');
-    let counter = 0;
-    
-    // Ubah salam setiap 1 menit (120000 milidetik)
-    setInterval(() => {
-        counter = (counter + 1) % greetings.length;
-        
-        // Fase 1: Animasi fade out (1 detik)
-        greetingElement.style.transition = 'all 1s ease-in-out';
-        greetingElement.style.opacity = '0';
-        greetingElement.style.transform = 'translateY(-15px)';
-        
-        setTimeout(() => {
-            // Ganti teks saat tidak terlihat
-            greetingElement.textContent = greetings[counter];
+        // Fungsi untuk rotasi greetings dengan animasi slow
+        function rotateGreetings() {
+            const greetingElement = document.querySelector('.greeting h2');
+            let counter = 0;
             
-            // Fase 2: Animasi fade in (1 detik)
-            greetingElement.style.opacity = '1';
-            greetingElement.style.transform = 'translateY(0)';
-            
-            // Tambahkan efek bounce halus setelah muncul
-            setTimeout(() => {
-                greetingElement.style.transform = 'translateY(-3px)';
-                setTimeout(() => {
-                    greetingElement.style.transform = 'translateY(0)';
-                }, 200);
-            }, 100);
-            
-        }, 1000); // Tunggu fade out selesai
-    }, 10000);
-}
-
-// Fungsi untuk menampilkan waktu
-function updateDateTime() {
-    const now = new Date();
-    const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-    const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-    
-    const dayName = days[now.getDay()];
-    const date = now.getDate();
-    const monthName = months[now.getMonth()];
-    const year = now.getFullYear();
-    
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    
-    document.getElementById('date').textContent = `${dayName}, ${date} ${monthName} ${year}`;
-    document.getElementById('time').textContent = `${hours}:${minutes}`;
-}
-
-// Data hadits
-const hadithData = {
-    "Semua": [
-        {
-            arabic: "Versi Website Hadistku",
-            translation: "Hey, kamu hebat bisa mampir di website HaditsKu versi beta/percobaan nih!. ✨ Maaf banget ya kalau ada fitur yang belum bisa diakses atau ada kesalahan di beberapa hadits. Tenang aja, kita terus upgrade biar semuanya makin perfect. Makasih udah sabar dan tetap support, ya! 😉"
-        },
-        {
-            arabic: "الصِّيَامُ جُنَّةٌ، فَإِذَا كَانَ يَوْمُ صَوْمِ أَحَدِكُمْ فَلَا يَرْفُثْ وَلَا يَصْخَبْ، فَإِنْ سَابَّهُ أَحَدٌ أَوْ قَاتَلَهُ فَلْيَقُلْ إِنِّي امْرُؤٌ صَائِمٌ",
-            translation: "Puasa adalah perisai. Jika salah seorang dari kalian sedang berpuasa, janganlah berkata kotor dan berteriak-teriak. Jika ada orang yang mencaci atau memusuhinya, hendaklah ia mengatakan, 'Aku sedang berpuasa.'",
-            source: "HR. Bukhari & Muslim"
-        },
-        {
-            arabic: "مَنْ صَامَ يَوْمًا فِي سَبِيلِ اللَّهِ، بَعَّدَ اللَّهُ بِذَلِكَ الْيَوْمِ وَجْهَهُ عَنِ النَّارِ سَبْعِينَ خَرِيفًا",
-            translation: "Barangsiapa berpuasa satu hari di jalan Allah, maka Allah akan menjauhkan wajahnya dari neraka sejauh tujuh puluh tahun.",
-            source: "HR. Bukhari & Muslim"
-        },
-        {
-            arabic: "مَنْ صَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ",
-            translation: "Barangsiapa berpuasa Ramadhan karena iman dan mengharap pahala, maka akan diampuni dosa-dosanya yang telah lalu.",
-            source: "HR. Bukhari & Muslim"
-        },
-        {
-            arabic: "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ، وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلَّا عِزًّا",
-            translation: "Sedekah tidak akan mengurangi harta, dan tidaklah Allah menambahkan kepada seorang hamba sifat pemaaf kecuali kemuliaan.",
-            source: "HR. Muslim"
-        }
-    ],
-    "Shalat": [
-        {
-            arabic: "إِذَا قَامَ أَحَدُكُمْ مِنَ اللَّيْلِ فَاسْتَعْجَمَ الْقُرْآنُ عَلَى لِسَانِهِ فَلَمْ يَدْرِ مَا يَقُولُ فَلْيَضْطَجِعْ",
-            translation: "Jika salah seorang dari kalian bangun malam lalu lisannya kesulitan membaca Al-Qur'an sehingga tidak tahu apa yang diucapkannya, maka hendaklah ia berbaring (tidur).",
-            source: "HR. Muslim"
-        }
-    ],
-    "Puasa": [
-        {
-            arabic: "الصِّيَامُ جُنَّةٌ، فَإِذَا كَانَ يَوْمُ صَوْمِ أَحَدِكُمْ فَلَا يَرْفُثْ وَلَا يَصْخَبْ، فَإِنْ سَابَّهُ أَحَدٌ أَوْ قَاتَلَهُ فَلْيَقُلْ إِنِّي امْرُؤٌ صَائِمٌ",
-            translation: "Puasa adalah perisai. Jika salah seorang dari kalian sedang berpuasa, janganlah berkata kotor dan berteriak-teriak. Jika ada orang yang mencaci atau memusuhinya, hendaklah ia mengatakan, 'Aku sedang berpuasa.'",
-            source: "HR. Bukhari & Muslim"
-        }
-    ],
-    "Zakat": [],
-    "Sedekah": [
-        {
-            arabic: "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ، وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلَّا عِزًّا",
-            translation: "Sedekah tidak akan mengurangi harta, dan tidaklah Allah menambahkan kepada seorang hamba sifat pemaaf kecuali kemuliaan.",
-            source: "HR. Muslim"
-        }
-    ],
-    "Akhlak": [
-        {
-            arabic: "مَنْ كَظَمَ غَيْظًا وَهُوَ قَادِرٌ عَلَى أَنْ يُنْفِذَهُ، دَعَاهُ اللَّهُ عَلَى رُءُوسِ الْخَلَائِقِ يَوْمَ الْقِيَامَةِ حَتَّى يُخَيِّرَهُ مِنَ الْحُورِ الْعِينِ مَا شَاءَ",
-            translation: "Barangsiapa menahan amarah padahal ia mampu meluapkannya, maka Allah akan memanggilnya di hadapan seluruh makhluk pada Hari Kiamat hingga memilihkan bidadari surga yang ia kehendaki.",
-            source: "HR. Abu Daud & Tirmidzi"
-        }
-    ]
-};
-
-// Fungsi untuk merender hadits
-function renderHadith(category) {
-    const container = document.getElementById('hadithList');
-    container.innerHTML = '';
-    
-    const hadiths = hadithData[category] || [];
-    
-    if (hadiths.length === 0) {
-        const emptyTemplate = document.getElementById('emptyTemplate');
-        const emptyContent = emptyTemplate.content.cloneNode(true);
-        container.appendChild(emptyContent);
-    } else {
-        hadiths.forEach((hadith, index) => {
-            const card = document.createElement('div');
-            card.className = 'hadith-card';
-            card.style.animationDelay = `${index * 0.1}s`;
-            card.innerHTML = `
-                <div class="hadith-arabic">${hadith.arabic}</div>
-                <div class="hadith-translation">${hadith.translation}</div>
-                <div class="hadith-meta">
-                    <span class="hadith-source">${hadith.source}</span>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    }
-}
-
-// Fungsi untuk toggle kategori
-function setupCategoryButtons() {
-    const categories = document.querySelectorAll('.category');
-    categories.forEach(category => {
-        category.addEventListener('click', function() {
-            categories.forEach(c => c.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Animasi klik
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = '';
-                renderHadith(this.textContent);
-            }, 200);
-        });
-    });
-}
-
-// Fungsi untuk pencarian
-function setupSearch() {
-    const searchInput = document.querySelector('.search-input');
-    searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        const hadithCards = document.querySelectorAll('.hadith-card');
-        
-        if (searchTerm.length === 0) {
-            const activeCategory = document.querySelector('.category.active');
-            renderHadith(activeCategory.textContent);
-            return;
-        }
-        
-        let hasResults = false;
-        
-        hadithCards.forEach(card => {
-            const text = card.textContent.toLowerCase();
-            if (text.includes(searchTerm)) {
-                card.style.display = 'block';
-                hasResults = true;
+            // Ubah salam setiap 1 menit (120000 milidetik)
+            setInterval(() => {
+                counter = (counter + 1) % greetings.length;
                 
-                // Animasi hasil pencarian
-                card.style.animation = 'none';
+                // Fase 1: Animasi fade out (1 detik)
+                greetingElement.style.transition = 'all 1s ease-in-out';
+                greetingElement.style.opacity = '0';
+                greetingElement.style.transform = 'translateY(-15px)';
+                
                 setTimeout(() => {
-                    card.style.animation = 'fadeIn 0.6s ease-out';
-                }, 10);
-            } else {
-                card.style.display = 'none';
-            }
-        });
-        
-        if (!hasResults) {
-            const container = document.getElementById('hadithList');
-            const emptyTemplate = document.getElementById('emptyTemplate');
-            const emptyContent = emptyTemplate.content.cloneNode(true);
-            
-            const emptyElement = emptyContent.querySelector('.empty-state');
-            emptyElement.querySelector('.empty-title').textContent = 'Hasil Tidak Ditemukan';
-            emptyElement.querySelector('.empty-desc').textContent = 'Tidak ada hadits yang sesuai dengan pencarian Anda';
-            
-            container.innerHTML = '';
-            container.appendChild(emptyContent);
+                    // Ganti teks saat tidak terlihat
+                    greetingElement.textContent = greetings[counter];
+                    
+                    // Fase 2: Animasi fade in (1 detik)
+                    greetingElement.style.opacity = '1';
+                    greetingElement.style.transform = 'translateY(0)';
+                    
+                    // Tambahkan efek bounce halus setelah muncul
+                    setTimeout(() => {
+                        greetingElement.style.transform = 'translateY(-3px)';
+                        setTimeout(() => {
+                            greetingElement.style.transform = 'translateY(0)';
+                        }, 200);
+                    }, 100);
+                    
+                }, 1000); // Tunggu fade out selesai
+            }, 10000);
         }
-    });
-}
 
-// Fungsi untuk bottom navigation
-function setupBottomNav() {
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            navItems.forEach(nav => nav.classList.remove('active'));
-            this.classList.add('active');
+        // Fungsi untuk menampilkan waktu
+        function updateDateTime() {
+            const now = new Date();
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
             
-            // Animasi klik
-            this.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 200);
-        });
-    });
-}
-
-// Fungsi untuk toggle tema gelap
-function setupThemeToggle() {
-    const themeToggle = document.getElementById('themeToggle');
-    const icon = themeToggle.querySelector('i');
-    
-    // Check for saved theme preference
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
-        icon.classList.replace('fa-moon', 'fa-sun');
-    }
-    
-    themeToggle.addEventListener('click', function() {
-        document.body.classList.toggle('dark-mode');
-        
-        // Animasi tombol tema
-        this.style.transform = 'scale(1.2)';
-        setTimeout(() => {
-            this.style.transform = '';
-        }, 200);
-        
-        if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('theme', 'dark');
-            icon.classList.replace('fa-moon', 'fa-sun');
-        } else {
-            localStorage.setItem('theme', 'light');
-            icon.classList.replace('fa-sun', 'fa-moon');
+            const dayName = days[now.getDay()];
+            const date = now.getDate();
+            const monthName = months[now.getMonth()];
+            const year = now.getFullYear();
+            
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            
+            document.getElementById('date').textContent = `${dayName}, ${date} ${monthName} ${year}`;
+            document.getElementById('time').textContent = `${hours}:${minutes}`;
         }
-    });
-}
 
-// Fungsi untuk hide/show footer saat scroll
-function setupScrollBehavior() {
-    const bottomNav = document.getElementById('bottomNav');
-    let lastScrollPosition = 0;
-    let ticking = false;
-    
-    window.addEventListener('scroll', function() {
-        const currentScrollPosition = window.pageYOffset;
-        
-        if (!ticking) {
-            window.requestAnimationFrame(function() {
-                if (currentScrollPosition > lastScrollPosition && currentScrollPosition > 100) {
-                    // Scrolling down
-                    bottomNav.classList.add('hidden');
-                } else {
-                    // Scrolling up
-                    bottomNav.classList.remove('hidden');
+        // Data hadits
+        const hadithData = {
+            "Semua": [
+                {
+                    arabic: "Versi Website Hadistku",
+                    translation: "Hey, kamu hebat bisa mampir di website HaditsKu versi beta/percobaan nih!. ✨ Maaf banget ya kalau ada fitur yang belum bisa diakses atau ada kesalahan di beberapa hadits. Tenang aja, kita terus upgrade biar semuanya makin perfect. Makasih udah sabar dan tetap support, ya! 😉"
+                },
+                {
+                    arabic: "الصِّيَامُ جُنَّةٌ، فَإِذَا كَانَ يَوْمُ صَوْمِ أَحَدِكُمْ فَلَا يَرْفُثْ وَلَا يَصْخَبْ، فَإِنْ سَابَّهُ أَحَدٌ أَوْ قَاتَلَهُ فَلْيَقُلْ إِنِّي امْرُؤٌ صَائِمٌ",
+                    translation: "Puasa adalah perisai. Jika salah seorang dari kalian sedang berpuasa, janganlah berkata kotor dan berteriak-teriak. Jika ada orang yang mencaci atau memusuhinya, hendaklah ia mengatakan, 'Aku sedang berpuasa.'",
+                    source: "HR. Bukhari & Muslim"
+                },
+                {
+                    arabic: "مَنْ صَامَ يَوْمًا فِي سَبِيلِ اللَّهِ، بَعَّدَ اللَّهُ بِذَلِكَ الْيَوْمِ وَجْهَهُ عَنِ النَّارِ سَبْعِينَ خَرِيفًا",
+                    translation: "Barangsiapa berpuasa satu hari di jalan Allah, maka Allah akan menjauhkan wajahnya dari neraka sejauh tujuh puluh tahun.",
+                    source: "HR. Bukhari & Muslim"
+                },
+                {
+                    arabic: "مَنْ صَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ",
+                    translation: "Barangsiapa berpuasa Ramadhan karena iman dan mengharap pahala, maka akan diampuni dosa-dosanya yang telah lalu.",
+                    source: "HR. Bukhari & Muslim"
+                },
+                {
+                    arabic: "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ، وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلَّا عِزًّا",
+                    translation: "Sedekah tidak akan mengurangi harta, dan tidaklah Allah menambahkan kepada seorang hamba sifat pemaaf kecuali kemuliaan.",
+                    source: "HR. Muslim"
                 }
-                lastScrollPosition = currentScrollPosition;
-                ticking = false;
-            });
-            ticking = true;
+            ],
+            "Shalat": [
+                {
+                    arabic: "إِذَا قَامَ أَحَدُكُمْ مِنَ اللَّيْلِ فَاسْتَعْجَمَ الْقُرْآنُ عَلَى لِسَانِهِ فَلَمْ يَدْرِ مَا يَقُولُ فَلْيَضْطَجِعْ",
+                    translation: "Jika salah seorang dari kalian bangun malam lalu lisannya kesulitan membaca Al-Qur'an sehingga tidak tahu apa yang diucapkannya, maka hendaklah ia berbaring (tidur).",
+                    source: "HR. Muslim"
+                }
+            ],
+            "Puasa": [
+                {
+                    arabic: "الصِّيَامُ جُنَّةٌ، فَإِذَا كَانَ يَوْمُ صَوْمِ أَحَدِكُمْ فَلَا يَرْفُثْ وَلَا يَصْخَبْ، فَإِنْ سَابَّهُ أَحَدٌ أَوْ قَاتَلَهُ فَلْيَقُلْ إِنِّي امْرُؤٌ صَائِمٌ",
+                    translation: "Puasa adalah perisai. Jika salah seorang dari kalian sedang berpuasa, janganlah berkata kotor dan berteriak-teriak. Jika ada orang yang mencaci atau memusuhinya, hendaklah ia mengatakan, 'Aku sedang berpuasa.'",
+                    source: "HR. Bukhari & Muslim"
+                }
+            ],
+            "Zakat": [],
+            "Sedekah": [
+                {
+                    arabic: "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ، وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلَّا عِزًّا",
+                    translation: "Sedekah tidak akan mengurangi harta, dan tidaklah Allah menambahkan kepada seorang hamba sifat pemaaf kecuali kemuliaan.",
+                    source: "HR. Muslim"
+                }
+            ],
+            "Akhlak": [
+                {
+                    arabic: "مَنْ كَظَمَ غَيْظًا وَهُوَ قَادِرٌ عَلَى أَنْ يُنْفِذَهُ، دَعَاهُ اللَّهُ عَلَى رُءُوسِ الْخَلَائِقِ يَوْمَ الْقِيَامَةِ حَتَّى يُخَيِّرَهُ مِنَ الْحُورِ الْعِينِ مَا شَاءَ",
+                    translation: "Barangsiapa menahan amarah padahal ia mampu meluapkannya, maka Allah akan memanggilnya di hadapan seluruh makhluk pada Hari Kiamat hingga memilihkan bidadari surga yang ia kehendaki.",
+                    source: "HR. Abu Daud & Tirmidzi"
+                }
+            ]
+        };
+
+        // Fungsi untuk merender hadits dengan lazy loading
+        function renderHadith(category) {
+            const container = document.getElementById('hadithList');
+            
+            // Tampilkan skeleton loading terlebih dahulu
+            container.innerHTML = `
+                <div class="skeleton-card lazy-load"></div>
+                <div class="skeleton-card lazy-load"></div>
+                <div class="skeleton-card lazy-load"></div>
+            `;
+            
+            // Gunakan setTimeout untuk simulasi loading data
+            setTimeout(() => {
+                const hadiths = hadithData[category] || [];
+                
+                if (hadiths.length === 0) {
+                    const emptyTemplate = document.getElementById('emptyTemplate');
+                    const emptyContent = emptyTemplate.content.cloneNode(true);
+                    container.innerHTML = '';
+                    container.appendChild(emptyContent);
+                } else {
+                    container.innerHTML = '';
+                    hadiths.forEach((hadith, index) => {
+                        const card = document.createElement('div');
+                        card.className = 'hadith-card lazy-load';
+                        card.style.transitionDelay = `${index * 0.1}s`;
+                        card.innerHTML = `
+                            <div class="hadith-arabic">${hadith.arabic}</div>
+                            <div class="hadith-translation">${hadith.translation}</div>
+                            <div class="hadith-meta">
+                                <span class="hadith-source">${hadith.source || ''}</span>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    });
+                }
+                
+                // Trigger lazy load animation setelah konten dimuat
+                setTimeout(() => {
+                    const elements = document.querySelectorAll('.lazy-load');
+                    elements.forEach(el => {
+                        el.classList.add('lazy-loaded');
+                    });
+                }, 50);
+            }, 800); // Simulasi loading data selama 800ms
         }
-    });
-}
 
-// Inisialisasi saat DOM siap
-document.addEventListener('DOMContentLoaded', function() {
-    // Setup date and time
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
-    
-    // Setup greetings rotation
-    rotateGreetings();
-    
-    // Render initial hadith
-    renderHadith('Semua');
-    
-    // Setup other functionalities
-    setupCategoryButtons();
-    setupSearch();
-    setupBottomNav();
-    setupThemeToggle();
-    setupScrollBehavior();
-});
+        // Fungsi untuk toggle kategori
+        function setupCategoryButtons() {
+            const categories = document.querySelectorAll('.category');
+            categories.forEach(category => {
+                category.addEventListener('click', function() {
+                    categories.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Animasi klik
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        renderHadith(this.textContent);
+                    }, 200);
+                });
+            });
+        }
 
-// Handle bottom nav links
-document.addEventListener('DOMContentLoaded', function() {
-    const bottomNavLinks = document.querySelectorAll('#bottomNav a');
+        // Fungsi untuk pencarian
+        function setupSearch() {
+            const searchInput = document.querySelector('.search-input');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const hadithCards = document.querySelectorAll('.hadith-card');
+                
+                if (searchTerm.length === 0) {
+                    const activeCategory = document.querySelector('.category.active');
+                    renderHadith(activeCategory.textContent);
+                    return;
+                }
+                
+                let hasResults = false;
+                
+                hadithCards.forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        hasResults = true;
+                        
+                        // Animasi hasil pencarian
+                        card.style.animation = 'none';
+                        setTimeout(() => {
+                            card.style.animation = '';
+                        }, 10);
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                if (!hasResults) {
+                    const container = document.getElementById('hadithList');
+                    const emptyTemplate = document.getElementById('emptyTemplate');
+                    const emptyContent = emptyTemplate.content.cloneNode(true);
+                    
+                    const emptyElement = emptyContent.querySelector('.empty-state');
+                    emptyElement.querySelector('.empty-title').textContent = 'Hasil Tidak Ditemukan';
+                    emptyElement.querySelector('.empty-desc').textContent = 'Tidak ada hadits yang sesuai dengan pencarian Anda';
+                    
+                    container.innerHTML = '';
+                    container.appendChild(emptyContent);
+                }
+            });
+        }
 
-    bottomNavLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = this.getAttribute('href');
+        // Fungsi untuk bottom navigation
+        function setupBottomNav() {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Animasi klik
+                    this.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+        }
 
-            if (target && target !== "#") {
-                window.location.href = target;
+        // Fungsi untuk toggle tema gelap
+        function setupThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const icon = themeToggle.querySelector('i');
+            
+            // Check for saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                icon.classList.replace('fa-moon', 'fa-sun');
             }
+            
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                
+                // Animasi tombol tema
+                this.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+                
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                }
+            });
+        }
+
+        // Fungsi untuk hide/show footer saat scroll
+        function setupScrollBehavior() {
+            const bottomNav = document.getElementById('bottomNav');
+            let lastScrollPosition = 0;
+            let ticking = false;
+            
+            window.addEventListener('scroll', function() {
+                const currentScrollPosition = window.pageYOffset;
+                
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        if (currentScrollPosition > lastScrollPosition && currentScrollPosition > 100) {
+                            // Scrolling down
+                            bottomNav.classList.add('hidden');
+                        } else {
+                            // Scrolling up
+                            bottomNav.classList.remove('hidden');
+                        }
+                        lastScrollPosition = currentScrollPosition;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        }
+
+        // Fungsi untuk lazy load dengan Intersection Observer
+        function setupLazyLoading() {
+            const lazyElements = document.querySelectorAll('.lazy-load');
+            
+            const lazyObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('lazy-loaded');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '0px 0px 100px 0px'
+            });
+            
+            lazyElements.forEach(element => {
+                lazyObserver.observe(element);
+            });
+        }
+
+        // Inisialisasi saat DOM siap
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup date and time
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            
+            // Setup greetings rotation
+            rotateGreetings();
+            
+            // Render initial hadith dengan skeleton loading
+            renderHadith('Semua');
+            
+            // Setup other functionalities
+            setupCategoryButtons();
+            setupSearch();
+            setupBottomNav();
+            setupThemeToggle();
+            setupScrollBehavior();
+            setupLazyLoading();
+            
+            // Set copyright year
+            document.getElementById('year').textContent = new Date().getFullYear();
         });
-    });
-});
+
+        // Handle bottom nav links
+        document.addEventListener('DOMContentLoaded', function() {
+            const bottomNavLinks = document.querySelectorAll('#bottomNav a');
+
+            bottomNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = this.getAttribute('href');
+
+                    if (target && target !== "#") {
+                        window.location.href = target;
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>

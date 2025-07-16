@@ -480,6 +480,104 @@
             font-size: 0.9rem;
             color: #aaa;
         }
+             .ad-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .ad-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .ad-content {
+            background-color: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+        
+        .ad-modal.active .ad-content {
+            transform: scale(1);
+        }
+        
+        .ad-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .ad-body {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .ad-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .ad-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px 20px;
+        }
+        
+        .ad-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .ad-btn-close {
+            background-color: #f0f0f0;
+            color: #555;
+        }
+        
+        .ad-btn-support {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+        
+        .ad-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark-mode .ad-content {
+            background-color: var(--dark-card);
+        }
+        
+        body.dark-mode .ad-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        }
+        
+        body.dark-mode .ad-btn-close {
+            background-color: #333;
+            color: #eee;
+        }
     </style>
 </head>
 <body>
@@ -503,7 +601,7 @@
     <!-- Main Content -->
     <main class="main">
         <section class="greeting lazy-load">
-            <h2>Assalamu'alaikum</h2>
+            <h2>ٱلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ </h2>
             <div class="time-info">
                 <span id="date"></span>
                 <span>•</span>
@@ -526,6 +624,22 @@
             <div class="skeleton-card lazy-load"></div>
             <div class="skeleton-card lazy-load"></div>
         </section>
+        
+         <div class="ad-modal" id="adModal">
+        <div class="ad-content">
+            <div class="ad-header">
+                Dukung Pengembangan HaditsKu
+            </div>
+            <div class="ad-body">
+                <p>Bantu kami mengembangkan platform HaditsKu dengan memberikan dukungan Anda. Setiap kontribusi sangat berarti!</p>
+            </div>
+            <div class="ad-footer">
+                <button class="ad-btn ad-btn-close" id="adClose">Nanti Saja</button>
+                <button class="ad-btn ad-btn-support" id="adSupport">Dukung Sekarang</button>
+            </div>
+        </div>
+    </div>
+
 
         <!-- Template untuk empty state -->
         <template id="emptyTemplate">
@@ -564,6 +678,80 @@
     </nav>
 
     <script>
+      function setupAdModal() {
+            const adModal = document.getElementById('adModal');
+            const adClose = document.getElementById('adClose');
+            const adSupport = document.getElementById('adSupport');
+            
+            // Show modal after 3 seconds
+            setTimeout(() => {
+                adModal.classList.add('active');
+            }, 3000);
+            
+            // Close button handler
+            adClose.addEventListener('click', () => {
+                adModal.classList.remove('active');
+            });
+            
+            // Support button handler - redirect to support page
+            adSupport.addEventListener('click', () => {
+                window.location.href = 'dukungan-hadistkuweb.html';
+            });
+            
+            // Also close when clicking outside the modal
+            adModal.addEventListener('click', (e) => {
+                if (e.target === adModal) {
+                    adModal.classList.remove('active');
+                }
+            });
+        }
+
+        // Add this to the DOMContentLoaded event listener
+        document.addEventListener('DOMContentLoaded', function() {
+            // Previous initialization code...
+            
+            // Setup ad modal
+            setupAdModal();
+            
+            // Rest of your code...
+        });
+      function setupAdModal() {
+            const adModal = document.getElementById('adModal');
+            const adClose = document.getElementById('adClose');
+            const adSupport = document.getElementById('adSupport');
+            
+            // Show modal after 3 seconds
+            setTimeout(() => {
+                adModal.classList.add('active');
+            }, 1500);
+            
+            // Close button handler
+            adClose.addEventListener('click', () => {
+                adModal.classList.remove('active');
+            });
+            
+            // Support button handler - redirect to support page
+            adSupport.addEventListener('click', () => {
+                window.location.href = 'dukungan-hadistkuweb.html';
+            });
+            
+            // Also close when clicking outside the modal
+            adModal.addEventListener('click', (e) => {
+                if (e.target === adModal) {
+                    adModal.classList.remove('active');
+                }
+            });
+        }
+
+        // Add this to the DOMContentLoaded event listener
+        document.addEventListener('DOMContentLoaded', function() {
+            // Previous initialization code...
+            
+            // Setup ad modal
+            setupAdModal();
+            
+            // Rest of your code...
+        });
         // Data untuk greetings yang berubah-ubah
         const greetings = [
             "Assalamu'alaikum",

@@ -1,1 +1,758 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - HaditsKu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d6e6e;
+            --primary-light: rgba(13, 110, 110, 0.1);
+            --primary-dark: #0a4f4f;
+            --secondary: #d6ccb5;
+            --accent: #f5c361;
+            --dark: #1e2a3a;
+            --light: #f8f8f6;
+            --gray: #718096;
+            
+            /* Dark mode */
+            --dark-bg: #121212;
+            --dark-card: #1e1e1e;
+            --dark-text: #e0e0e0;
+            --dark-border: #333;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: all 0.4s ease;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        /* Geometric Background Animation */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            opacity: 0.15;
+        }
+
+        .shape {
+            position: absolute;
+            background: var(--primary-light);
+            animation: move 25s infinite linear;
+        }
+
+        .shape:nth-child(1) {
+            width: 150px;
+            height: 150px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            top: 60%;
+            left: 80%;
+            animation-delay: 5s;
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: 30%;
+            left: 70%;
+            animation-delay: 10s;
+        }
+
+        .shape:nth-child(4) {
+            width: 180px;
+            height: 180px;
+            border-radius: 40% 60% 70% 30% / 40% 50% 50% 60%;
+            top: 70%;
+            left: 20%;
+            animation-delay: 15s;
+        }
+
+        .shape:nth-child(5) {
+            width: 120px;
+            height: 120px;
+            border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+            top: 20%;
+            left: 50%;
+            animation-delay: 20s;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(50px, 50px) rotate(90deg);
+            }
+            50% {
+                transform: translate(100px, 0) rotate(180deg);
+            }
+            75% {
+                transform: translate(50px, -50px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-top: 10px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 8px;
+            font-size: 1.3rem;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 40px;
+        }
+
+        .text-content {
+            width: 100%;
+            text-align: center;
+        }
+
+        .visual-content {
+            width: 100%;
+            min-height: 250px;
+            margin: 0 auto;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .launch-date {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .description {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: var(--gray);
+            line-height: 1.7;
+            padding: 0 10px;
+        }
+
+        .notify-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--primary-light);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(13, 110, 110, 0.1);
+        }
+
+        body.dark-mode .form-control {
+            background-color: var(--dark-bg);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            width: 100%;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(13, 110, 110, 0.2);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .countdown-item {
+            text-align: center;
+            min-width: 70px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        body.dark-mode .countdown-item {
+            background-color: var(--dark-card);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .countdown-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .visual-element {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 250px;
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .visual-element::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(
+                transparent,
+                transparent,
+                transparent,
+                var(--primary)
+            );
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .visual-element::after {
+            content: '20 JULI 2025';
+            position: absolute;
+            inset: 4px;
+            background: var(--light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        body.dark-mode .visual-element::after {
+            background: var(--dark-card);
+        }
+
+        .theme-toggle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 90%;
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        .notification.hide {
+            animation: slideOut 0.3s ease forwards;
+        }
+
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+            to {
+                opacity: 0;
+                transform: translate(-50%, -20px);
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        h1 {
+            animation: fadeIn 0.8s ease 0.2s forwards;
+        }
+
+        .launch-date {
+            animation: fadeIn 0.8s ease 0.3s forwards;
+        }
+
+        .description {
+            animation: fadeIn 0.8s ease 0.4s forwards;
+        }
+
+        .notify-form {
+            animation: fadeIn 0.8s ease 0.5s forwards;
+        }
+
+        .countdown {
+            animation: fadeIn 0.8s ease 0.6s forwards;
+        }
+
+        .social-links {
+            animation: fadeIn 0.8s ease 0.7s forwards;
+        }
+
+        .visual-element {
+            animation: fadeIn 0.8s ease 0.8s forwards;
+        }
+
+        /* Tablet view */
+        @media (min-width: 600px) {
+            .container {
+                padding: 30px;
+            }
+            
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            .launch-date {
+                font-size: 1.2rem;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .visual-element::after {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Desktop view */
+        @media (min-width: 900px) {
+            .container {
+                padding: 40px;
+                max-width: 1000px;
+            }
+            
+            .main-content {
+                flex-direction: row;
+                align-items: center;
+                gap: 60px;
+            }
+            
+            .text-content {
+                text-align: left;
+                max-width: 500px;
+            }
+            
+            .visual-content {
+                min-height: 350px;
+            }
+            
+            .notify-form {
+                flex-direction: row;
+                max-width: 100%;
+            }
+            
+            .submit-btn {
+                width: auto;
+                padding: 0 30px;
+            }
+            
+            .launch-date {
+                justify-content: flex-start;
+            }
+            
+            .social-links {
+                justify-content: flex-start;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .description {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Geometric Background Animation -->
+    <div class="bg-pattern">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-book-quran"></i>
+                <span>HaditsKu</span>
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+
+        <div class="main-content">
+            <div class="text-content">
+                <h1>Pengalaman Baru <span class="highlight">HaditsKu</span> Segera Hadir</h1>
+                
+                <div class="launch-date">
+                    <i class="fas fa-calendar-alt"></i> Launching pada 20 Juli 2025
+                </div>
+                
+                <div class="description">
+                    Kami sedang mempersiapkan revolusi dalam pembelajaran hadits. Platform baru kami akan memberikan pengalaman yang lebih interaktif, lengkap, dan mudah diakses. Daftarkan email Anda untuk mendapatkan notifikasi peluncuran pertama.
+                </div>
+                
+                <div class="notify-form">
+                    <input type="email" class="form-control" id="email" placeholder="Alamat email Anda" required>
+                    <button class="submit-btn" id="notifyBtn">
+                        <i class="fas fa-paper-plane"></i> Daftar
+                    </button>
+                </div>
+                
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="days">00</div>
+                        <div class="countdown-label">Hari</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="hours">00</div>
+                        <div class="countdown-label">Jam</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="minutes">00</div>
+                        <div class="countdown-label">Menit</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="seconds">00</div>
+                        <div class="countdown-label">Detik</div>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://facebook.com" class="social-link" title="Facebook" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com" class="social-link" title="Twitter" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/riz_456d" class="social-link" title="Instagram" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://youtube.com" class="social-link" title="YouTube" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="visual-content">
+                <div class="visual-element"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+
+        // Countdown Timer
+        function updateCountdown() {
+            const launchDate = new Date('July 20, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById('countdown').innerHTML = '<div style="font-size: 1.2rem; color: var(--primary);">Website telah diluncurkan!</div>';
+            }
+        }
+        
+        updateCountdown();
+        const countdownTimer = setInterval(updateCountdown, 1000);
+
+        // Show notification
+        function showNotification(message, isSuccess = true) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <i class="fas ${isSuccess ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('hide');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Email Notification via Instagram DM
+        document.getElementById('notifyBtn').addEventListener('click', function() {
+            const email = document.getElementById('email').value.trim();
+            
+            if (!email) {
+                showNotification('Silakan masukkan alamat email Anda', false);
+                return;
+            }
+            
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showNotification('Silakan masukkan alamat email yang valid', false);
+                return;
+            }
+            
+            // Open Instagram DM with pre-filled message
+            const message = `Halo, saya ingin mendaftar untuk notifikasi peluncuran HaditsKu. Email saya: ${email}`;
+            const instagramUrl = `https://instagram.com/direct/riz_456d?text=${encodeURIComponent(message)}`;
+            
+            // Try to open Instagram app, fallback to web
+            window.location.href = `instagram://direct?username=riz_456d&text=${encodeURIComponent(message)}`;
+            
+            // If Instagram app not available, open in browser after delay
+            setTimeout(() => {
+                window.open(instagramUrl, '_blank');
+            }, 500);
+            
+            // Show success message
+            showNotification('Buka Instagram untuk mengirim DM konfirmasi');
+            
+            // Clear the form
+            document.getElementById('email').value = '';
+        });
+
+        // Better mobile form handling
+        document.getElementById('email').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('notifyBtn').click();
+            }
+        });
+    </script>
+</body>
+</html>

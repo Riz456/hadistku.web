@@ -299,7 +299,7 @@
         }
 
         .visual-element::after {
-            content: '25 JULI 2025';
+            content: '17 Agustus 2025';
             position: absolute;
             inset: 4px;
             background: var(--light);
@@ -503,7 +503,7 @@
                 <h1>Pengalaman Baru <span style="color: var(--primary);">HaditsKu</span> Segera Hadir</h1>
                 
                 <div class="launch-date">
-                    <i class="fas fa-calendar-alt"></i> Launching pada 20 Juli 2025
+                    <i class="fas fa-calendar-alt"></i> Launching pada 17 Agustus 2025
                 </div>
                 
                 <div class="description">
@@ -537,16 +537,13 @@
                 </div>
                 
                 <div class="social-links">
-                    <a href="https://facebook.com" class="social-link" title="Facebook" target="_blank">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://twitter.com" class="social-link" title="Twitter" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                    </a>
                     <a href="https://instagram.com/riz_456d" class="social-link" title="Instagram" target="_blank">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://youtube.com" class="social-link" title="YouTube" target="_blank">
+                     <a href="https://wa.me/6282326744030" class="social-link" title="WhatsApp" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://youtube.com/@bambam-x1?feature=shared" class="social-link" title="YouTube" target="_blank">
                         <i class="fab fa-youtube"></i>
                     </a>
                 </div>
@@ -593,7 +590,7 @@
 
         // Countdown Timer
         function updateCountdown() {
-            const launchDate = new Date('July 25, 2025 00:00:00').getTime();
+            const launchDate = new Date('August 17, 2025 00:00:00').getTime();
             const now = new Date().getTime();
             const distance = launchDate - now;
             
@@ -655,7 +652,8 @@
         });
 
         openWhatsAppBtn.addEventListener('click', function() {
-            const message = encodeURIComponent(`Halo, nama saya: ${userName}`);
+            const message = encodeURIComponent(`Halo adminn! 🎧 Aku [namamu] di sini.   : ${userName} Denger-denger Hadistku bakal launching lagi? Kasih kabar ya pas open! Nggak sabar banget pengen scroll dan explore isi web-nya. 🚀  
+Thanks dan semangat terus tim dev-nya! 🙌✨ `);
             const whatsappUrl = `https://wa.me/6282326744030?text=${message}`;
             
             // Try to open WhatsApp app

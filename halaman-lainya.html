@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Lainnya - HaditsKu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="website icon" type="png" href="alquran.png">
+    <style>
+        :root {
+            --primary: #0d6e6e;
+            --primary-light: rgba(13, 110, 110, 0.1);
+            --primary-dark: #0a4f4f;
+            --secondary: #d6ccb5;
+            --accent: #f5c361;
+            --dark: #1e2a3a;
+            --light: #f8f8f6;
+            --gray: #718096;
+            
+            /* Dark mode variables */
+            --dark-bg: #121212;
+            --dark-card: #1e1e1e;
+            --dark-text: #e0e0e0;
+            --dark-border: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            padding-bottom: 70px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        /* Ultra Compact Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        body.dark-mode .header {
+            background-color: var(--dark-card);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background-color: var(--primary-light);
+            transform: translateX(-2px);
+        }
+
+        .page-title {
+            flex: 1;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary);
+            letter-spacing: -0.3px;
+        }
+
+        body.dark-mode .page-title {
+            color: var(--secondary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--dark);
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary-light);
+            transform: rotate(15deg);
+        }
+
+        body.dark-mode .theme-toggle {
+            color: var(--dark-text);
+        }
+
+        /* Main Content */
+        .main {
+            padding: 15px;
+        }
+
+        /* 3D Compact Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            padding: 12px 8px;
+            box-shadow: 
+                0 2px 4px rgba(0,0,0,0.05),
+                0 4px 6px rgba(0,0,0,0.02);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid rgba(0,0,0,0.03);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .menu-item {
+            background-color: var(--dark-card);
+            border-color: var(--dark-border);
+            box-shadow: 
+                0 2px 4px rgba(0,0,0,0.1),
+                0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .menu-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 4px 8px rgba(0,0,0,0.08),
+                0 6px 10px rgba(0,0,0,0.03);
+        }
+
+        .menu-item:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .menu-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-light), white);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 
+                inset 2px 2px 3px rgba(255,255,255,0.8),
+                2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        body.dark-mode .menu-icon {
+            background: linear-gradient(135deg, rgba(13, 110, 110, 0.2), var(--dark-card));
+            box-shadow: 
+                inset 2px 2px 3px rgba(255,255,255,0.05),
+                2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .menu-item:hover .menu-icon {
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: 
+                inset 2px 2px 3px rgba(255,255,255,0.8),
+                3px 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .menu-title {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--dark);
+            margin-bottom: 2px;
+            letter-spacing: -0.2px;
+        }
+
+        body.dark-mode .menu-title {
+            color: var(--dark-text);
+        }
+
+        .menu-desc {
+            font-size: 0.6rem;
+            color: var(--gray);
+            display: none;
+        }
+
+        /* Compact Section Title */
+        .section-title {
+            margin: 18px 0 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        body.dark-mode .section-title {
+            color: var(--secondary);
+        }
+
+        .section-title i {
+            font-size: 0.9rem;
+        }
+
+        /* Floating Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 30px);
+            max-width: 400px;
+            background-color: white;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 5px;
+            box-shadow: 
+                0 -2px 5px rgba(0,0,0,0.03),
+                0 5px 15px rgba(0,0,0,0.1);
+            z-index: 90;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode .bottom-nav {
+            background-color: var(--dark-card);
+            box-shadow: 
+                0 -2px 5px rgba(0,0,0,0.1),
+                0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .bottom-nav.hidden {
+            transform: translateX(-50%) translateY(calc(100% + 20px));
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray);
+            font-size: 0.65rem;
+            padding: 5px 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-item i {
+            font-size: 1.1rem;
+            margin-bottom: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            transform: translateY(-8px);
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .nav-item:not(.active):hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .nav-item.active i {
+            transform: scale(1.15);
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 400px) {
+            .menu-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+            }
+            
+            .menu-item {
+                padding: 12px 8px;
+            }
+            
+            .menu-icon {
+                width: 34px;
+                height: 34px;
+            }
+            
+            .menu-title {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (min-width: 600px) {
+            .menu-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="back-btn" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="page-title">Menu Lainnya</div>
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Aplikasi Section -->
+        <h2 class="section-title">
+            <i class="fas fa-mobile-alt"></i>
+            Aplikasi
+        </h2>
+        <div class="menu-grid">
+            <a href="pengaturan-hadist.html" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <h3 class="menu-title">Pengaturan</h3>
+                <p class="menu-desc">Atur tampilan aplikasi</p>
+            </a>
+
+            <a href="tentang-aplikasi-hadistku.html" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <h3 class="menu-title">Tentang</h3>
+                <p class="menu-desc">Info aplikasi</p>
+            </a>
+
+            <a href="update-hadist.html" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <h3 class="menu-title">Pembaruan</h3>
+                <p class="menu-desc">Perbarui konten</p>
+            </a>
+        </div>
+
+        <!-- Fitur Section -->
+        <h2 class="section-title">
+            <i class="fas fa-star"></i>
+            Fitur
+        </h2>
+        <div class="menu-grid">
+            <a href="kitab-hadist.html" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3 class="menu-title">Kitab</h3>
+                <p class="menu-desc">Cari hadits</p>
+            </a>
+            
+            <a href="catatan-hadistku.html" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <h3 class="menu-title">Catatan</h3>
+                <p class="menu-desc">Notebook</p>
+            </a>
+
+            <a href="kategori-hadist.html" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <h3 class="menu-title">Kategori</h3>
+                <p class="menu-desc">Hadits topik</p>
+            </a>
+
+            <a href="doa-harian.html" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-hands-praying"></i>
+                </div>
+                <h3 class="menu-title">Doa</h3>
+                <p class="menu-desc">Doa harian</p>
+            </a>
+
+            <a href="dzikir-pagi-petang.html" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-dharmachakra"></i>
+                </div>
+                <h3 class="menu-title">Dzikir</h3>
+                <p class="menu-desc">Pagi & petang</p>
+            </a>
+
+            <a href="bookmark-hadist.html" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-bookmark"></i>
+                </div>
+                <h3 class="menu-title">Bookmark</h3>
+                <p class="menu-desc">Hadits ditandai</p>
+            </a>
+
+            <a href="riwayat-baca.html" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h3 class="menu-title">Riwayat</h3>
+                <p class="menu-desc">Yang dibaca</p>
+            </a>
+        </div>
+
+        <!-- Lainnya Section -->
+        <h2 class="section-title">
+            <i class="fas fa-ellipsis-h"></i>
+            Lainnya
+        </h2>
+        <div class="menu-grid">
+            <a href="rate-app.html" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <h3 class="menu-title">Rating</h3>
+                <p class="menu-desc">Beri nilai</p>
+            </a>
+
+            <a href="bagikan-hadist.html" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-share-alt"></i>
+                </div>
+                <h3 class="menu-title">Bagikan</h3>
+                <p class="menu-desc">Ke teman</p>
+            </a>
+
+            <a href="kontak-hadist.html" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3 class="menu-title">Kontak</h3>
+                <p class="menu-desc">Hubungi kami</p>
+            </a>
+        </div>
+    </main>
+
+    <!-- Floating Bottom Navigation -->
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Beranda</span>
+        </a>
+        <a href="kitab-hadist.html" class="nav-item">
+            <i class="fas fa-book"></i>
+            <span>Kitab</span>
+        </a>
+        <a href="favorite-hadist.html" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>Favorit</span>
+        </a>
+        <a href="profil-hadist.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Profil</span>
+        </a>
+    </nav>
+
+   <script>
+    // Fungsi untuk toggle tema gelap
+    function setupThemeToggle() {
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                localStorage.setItem('theme', 'light');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            }
+        });
+    }
+
+    // Fungsi untuk bottom navigation
+    function setupBottomNav() {
+        const navItems = document.querySelectorAll('.nav-item');
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        
+        navItems.forEach(item => {
+            const itemHref = item.getAttribute('href').split('/').pop();
+            
+            // Set active class based on current page
+            if (itemHref === currentPage) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    // Fungsi untuk hide/show footer saat scroll
+    function setupScrollBehavior() {
+        const bottomNav = document.getElementById('bottomNav');
+        let lastScrollPosition = 0;
+        const scrollThreshold = 5;
+        
+        window.addEventListener('scroll', function() {
+            const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (currentScrollPosition > lastScrollPosition && currentScrollPosition > scrollThreshold) {
+                bottomNav.classList.add('hidden');
+            } 
+            else if (currentScrollPosition < lastScrollPosition) {
+                bottomNav.classList.remove('hidden');
+            }
+            
+            lastScrollPosition = currentScrollPosition <= 0 ? 0 : currentScrollPosition;
+        });
+    }
+
+    // Inisialisasi
+    document.addEventListener('DOMContentLoaded', function() {
+        setupThemeToggle();
+        setupBottomNav();
+        setupScrollBehavior();
+    });
+</script>
+</body>
+</html>

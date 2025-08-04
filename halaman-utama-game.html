@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Hadits - HaditsKu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="website icon" type="png" href="alquran.png">
+    <style>
+        :root {
+            --primary: #0d6e6e;
+            --primary-light: rgba(13, 110, 110, 0.1);
+            --primary-dark: #0a4f4f;
+            --secondary: #d6ccb5;
+            --accent: #f5c361;
+            --dark: #1e2a3a;
+            --light: #f8f8f6;
+            --gray: #718096;
+            --arabic-font: 'Amiri', serif;
+            --error: #e74c3c;
+            --success: #2ecc71;
+            
+            /* Dark mode variables */
+            --dark-bg: #121212;
+            --dark-card: #1e1e1e;
+            --dark-text: #e0e0e0;
+            --dark-border: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            padding-bottom: 60px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-text-size-adjust: 100%;
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode .header {
+            background-color: var(--dark-card);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-right: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-3px);
+        }
+
+        body.dark-mode .back-btn {
+            color: var(--secondary);
+        }
+
+        .page-title {
+            flex: 1;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 5px;
+        }
+
+        body.dark-mode .page-title {
+            color: var(--secondary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-left: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        body.dark-mode .theme-toggle {
+            color: var(--dark-text);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            color: var(--accent);
+        }
+
+        /* Main Content */
+        .main {
+            padding: 15px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Game Categories - Tampilan Baru yang Lebih Rapi */
+        .categories-container {
+            margin: 15px 0 25px;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        body.dark-mode .section-title {
+            color: var(--secondary);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        @media (min-width: 400px) {
+            .categories-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 600px) {
+            .categories-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 10px;
+            }
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--dark);
+            padding: 10px 5px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .category-item {
+            background-color: var(--dark-card);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            color: var(--dark-text);
+        }
+
+        .category-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .category-item:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .category-icon {
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 6px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .category-icon {
+            background-color: rgba(13, 110, 110, 0.2);
+        }
+
+        .category-item:hover .category-icon {
+            transform: scale(1.1);
+            background-color: var(--primary);
+            color: white;
+        }
+
+        body.dark-mode .category-item:hover .category-icon {
+            background-color: var(--secondary);
+            color: var(--dark-card);
+        }
+
+        .category-name {
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.2;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        /* Game Cards */
+        .game-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        @media (min-width: 500px) {
+            .game-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 800px) {
+            .game-list {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+            }
+        }
+
+        .game-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(20px);
+            will-change: transform, opacity;
+        }
+
+        .game-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        body.dark-mode .game-card {
+            background-color: var(--dark-card);
+            border-color: var(--dark-border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .game-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            background-color: #f0f0f0;
+            display: block;
+        }
+
+        body.dark-mode .game-image {
+            background-color: var(--dark-bg);
+        }
+
+        .game-content {
+            padding: 12px;
+        }
+
+        .game-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        body.dark-mode .game-title {
+            color: var(--dark-text);
+        }
+
+        .game-desc {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        body.dark-mode .game-desc {
+            color: #a0aec0;
+        }
+
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        body.dark-mode .game-meta {
+            color: #a0aec0;
+        }
+
+        .game-play {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        body.dark-mode .game-play {
+            background-color: var(--secondary);
+            color: var(--dark-card);
+        }
+
+        .game-play:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        body.dark-mode .game-play:hover {
+            background-color: #c8ba9e;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+            z-index: 90;
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode .bottom-nav {
+            background-color: var(--dark-card);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+        }
+
+        .bottom-nav.hidden {
+            transform: translateY(100%);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray);
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex: 1;
+            max-width: 25%;
+        }
+
+        body.dark-mode .nav-item {
+            color: #a0aec0;
+        }
+
+        .nav-item i {
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item span {
+            font-size: 0.65rem;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            background-color: var(--primary-light);
+            transform: translateY(-5px);
+        }
+
+        body.dark-mode .nav-item.active {
+            color: var(--secondary);
+            background-color: rgba(214, 204, 181, 0.1);
+        }
+
+        .nav-item:not(.active):hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        body.dark-mode .nav-item:not(.active):hover {
+            color: var(--secondary);
+        }
+
+        .nav-item.active i {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        body.dark-mode .nav-item.active i {
+            color: var(--secondary);
+        }
+
+        /* Responsive */
+        @media (min-width: 400px) {
+            .nav-item span {
+                font-size: 0.7rem;
+            }
+            
+            .category-name {
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .header {
+                padding: 12px 20px;
+            }
+            
+            .page-title {
+                font-size: 1.1rem;
+            }
+            
+            .main {
+                padding: 15px;
+            }
+            
+            .categories-grid {
+                gap: 10px;
+            }
+            
+            .category-item {
+                padding: 12px 6px;
+            }
+            
+            .category-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+            
+            .category-name {
+                font-size: 0.7rem;
+            }
+            
+            .nav-item {
+                padding: 5px 10px;
+            }
+            
+            .nav-item i {
+                font-size: 1.2rem;
+            }
+            
+            .nav-item span {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="back-btn" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="page-title">Game Hadits</div>
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Kategori Game - Tampilan Baru yang Lebih Rapi -->
+        <div class="categories-container">
+            <h2 class="section-title">
+                <i class="fas fa-layer-group"></i> Pilih Kategori Game
+            </h2>
+            
+            <div class="categories-grid" id="gameCategories">
+                <!-- Kategori game akan dimuat di sini -->
+            </div>
+        </div>
+
+        <!-- Game Terpopuler -->
+        <div class="game-section">
+            <h2 class="section-title">
+                <i class="fas fa-fire"></i> Game Terpopuler
+            </h2>
+            
+            <div class="game-list" id="popularGames">
+                <!-- Game populer akan dimuat di sini -->
+            </div>
+        </div>
+
+        <!-- Game Baru -->
+        <div class="game-section">
+            <h2 class="section-title">
+                <i class="fas fa-clock"></i> Baru Dirilis
+            </h2>
+            
+            <div class="game-list" id="newGames">
+                <!-- Game baru akan dimuat di sini -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Beranda</span>
+        </a>
+        <a href="kitab-hadist.html" class="nav-item">
+            <i class="fas fa-book"></i>
+            <span>Kitab</span>
+        </a>
+        <a href="favorite-hadist.html" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>Favorit</span>
+        </a>
+        <a href="game-hadist.html" class="nav-item active">
+            <i class="fas fa-gamepad"></i>
+            <span>Game</span>
+        </a>
+    </nav>
+
+    <script>
+        // Data game
+        const gameData = {
+            categories: [
+                {
+                    id: 1,
+                    title: "Tebak Hadits",
+                    icon: "fas fa-question"
+                },
+                {
+                    id: 2,
+                    title: "Susun Ayat",
+                    icon: "fas fa-puzzle-piece"
+                },
+                {
+                    id: 3,
+                    title: "Hafalan",
+                    icon: "fas fa-brain"
+                },
+                {
+                    id: 4,
+                    title: "Sahih/Dhaif",
+                    icon: "fas fa-check-circle"
+                },
+                {
+                    id: 5,
+                    title: "Perawi",
+                    icon: "fas fa-users"
+                },
+                {
+                    id: 6,
+                    title: "Konteks",
+                    icon: "fas fa-book-open"
+                },
+                {
+                    id: 7,
+                    title: "Terjemahan",
+                    icon: "fas fa-language"
+                },
+                {
+                    id: 8,
+                    title: "Kronologi",
+                    icon: "fas fa-history"
+                },
+                {
+                    id: 9,
+                    title: "Topik",
+                    icon: "fas fa-tags"
+                },
+                {
+                    id: 10,
+                    title: "Sanad",
+                    icon: "fas fa-link"
+                },
+                {
+                    id: 11,
+                    title: "Matan",
+                    icon: "fas fa-quote-right"
+                },
+                {
+                    id: 12,
+                    title: "Kitab",
+                    icon: "fas fa-book-quran"
+                }
+            ],
+            popularGames: [
+                {
+                    id: 1,
+                    title: "Tebak Perawi Hadits",
+                    desc: "Tebak siapa perawi dari hadits yang ditampilkan",
+                    image: "https://via.placeholder.com/300x120?text=Tebak+Perawi",
+                    plays: "10.2k",
+                    rating: "4.8"
+                },
+                {
+                    id: 2,
+                    title: "Hadits Puzzle",
+                    desc: "Susun potongan-potongan hadits menjadi lengkap",
+                    image: "https://via.placeholder.com/300x120?text=Hadits+Puzzle",
+                    plays: "8.5k",
+                    rating: "4.7"
+                },
+                {
+                    id: 3,
+                    title: "Kuis Sahih-Dhaif",
+                    desc: "Tentukan apakah hadits ini sahih atau dhaif",
+                    image: "https://via.placeholder.com/300x120?text=Sahih+Dhaif",
+                    plays: "7.9k",
+                    rating: "4.6"
+                }
+            ],
+            newGames: [
+                {
+                    id: 4,
+                    title: "Hadits Memory",
+                    desc: "Temukan pasangan hadits yang sama",
+                    image: "https://via.placeholder.com/300x120?text=Hadits+Memory",
+                    plays: "1.2k",
+                    rating: "4.2",
+                    new: true
+                },
+                {
+                    id: 5,
+                    title: "Kuis Matan",
+                    desc: "Jawab pertanyaan tentang makna hadits",
+                    image: "https://via.placeholder.com/300x120?text=Kuis+Matan",
+                    plays: "980",
+                    rating: "4.1",
+                    new: true
+                },
+                {
+                    id: 6,
+                    title: "Urutan Hadits",
+                    desc: "Susun hadits berdasarkan kronologi",
+                    image: "https://via.placeholder.com/300x120?text=Urutan+Hadits",
+                    plays: "750",
+                    rating: "4.0",
+                    new: true
+                }
+            ]
+        };
+
+        // Fungsi untuk render kategori game yang lebih sederhana
+        function renderCategories() {
+            const container = document.getElementById('gameCategories');
+            
+            gameData.categories.forEach((category, index) => {
+                const categoryItem = document.createElement('a');
+                categoryItem.href = `game-category.html?id=${category.id}`;
+                categoryItem.className = 'category-item';
+                categoryItem.innerHTML = `
+                    <div class="category-icon">
+                        <i class="${category.icon}"></i>
+                    </div>
+                    <span class="category-name">${category.title}</span>
+                `;
+                
+                container.appendChild(categoryItem);
+            });
+        }
+
+        // Fungsi untuk render game list dengan lazy loading
+        function renderGameList(containerId, games) {
+            const container = document.getElementById(containerId);
+            
+            games.forEach((game, index) => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.innerHTML = `
+                    <img src="${game.image}" alt="${game.title}" class="game-image" loading="lazy">
+                    <div class="game-content">
+                        <h3 class="game-title">${game.title}</h3>
+                        <p class="game-desc">${game.desc}</p>
+                        <div class="game-meta">
+                            <span><i class="fas fa-play"></i> ${game.plays} • <i class="fas fa-star"></i> ${game.rating}</span>
+                            <button class="game-play">
+                                <i class="fas fa-play"></i> Mainkan
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(gameCard);
+                
+                // Lazy load animation
+                setTimeout(() => {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.1 });
+                    
+                    observer.observe(gameCard);
+                }, index * 100);
+                
+                // Add click event to play button
+                gameCard.querySelector('.game-play').addEventListener('click', () => {
+                    window.location.href = `game-play.html?id=${game.id}`;
+                });
+            });
+        }
+
+        // Fungsi untuk toggle tema gelap
+        function setupThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const icon = themeToggle.querySelector('i');
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.body.classList.add('dark-mode');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                }
+            });
+        }
+
+        // Fungsi untuk hide/show footer saat scroll
+        function setupScrollBehavior() {
+            const bottomNav = document.getElementById('bottomNav');
+            let lastScrollPosition = 0;
+            let ticking = false;
+            
+            window.addEventListener('scroll', function() {
+                const currentScrollPosition = window.pageYOffset;
+                
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        if (currentScrollPosition > lastScrollPosition && currentScrollPosition > 100) {
+                            bottomNav.classList.add('hidden');
+                        } else {
+                            bottomNav.classList.remove('hidden');
+                        }
+                        lastScrollPosition = currentScrollPosition;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        }
+
+        // Fungsi untuk bottom navigation
+        function setupBottomNav() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            
+            navItems.forEach(item => {
+                const itemHref = item.getAttribute('href').split('/').pop();
+                
+                if (itemHref === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCategories();
+            renderGameList('popularGames', gameData.popularGames);
+            renderGameList('newGames', gameData.newGames);
+            setupThemeToggle();
+            setupScrollBehavior();
+            setupBottomNav();
+        });
+    </script>
+</body>
+</html>

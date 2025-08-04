@@ -1,53 +1,12 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Selamat Datang</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #0f172a; /* warna gelap */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      color: white;
-      font-family: 'Poppins', sans-serif;
-      flex-direction: column;
-    }
-
-    .loader {
-      border: 6px solid #334155;
-      border-top: 6px solid #38bdf8; /* warna biru muda */
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
-      margin-bottom: 20px;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .text {
-      font-size: 1.2rem;
-      opacity: 0.8;
-    }
-  </style>
+  <meta http-equiv="refresh" content="0; url=launching/index.html" />
+  <title>Redirect...</title>
 </head>
 <body>
-  <div class="loader"></div>
-  <div class="text">Loading ke halaman login...</div>
-
-  <script>
-    // Setelah 3 detik, redirect ke login.html
-    setTimeout(function () {
-      window.location.href = "launching/index.html";
-    }, 3000); // 3000ms = 3 detik
-  </script>
+  <p>Mengarahkan ke halaman login...</p>
 </body>
 </html>
